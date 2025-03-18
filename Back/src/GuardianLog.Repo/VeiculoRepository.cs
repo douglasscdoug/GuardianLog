@@ -7,7 +7,7 @@ namespace GuardianLog.Repo;
 
 public class VeiculoRepository(Context _context) : IVeiculoRepository
 {
-   public Context Context { get; } = _context;
+    public Context Context { get; } = _context;
 
     public async Task<Veiculo[]?> GetAllVeiculos()
     {

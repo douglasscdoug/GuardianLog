@@ -1,8 +1,11 @@
+using System.Text.Json.Serialization;
 using GuardianLog.Application;
 using GuardianLog.Application.Contratos;
+using GuardianLog.Application.Helpers;
 using GuardianLog.Repo;
 using GuardianLog.Repo.Contexts;
 using GuardianLog.Repo.Contratos;
+using Microsoft.AspNetCore.Http.Json;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -15,9 +18,20 @@ builder.Services.AddDbContext<Context>(
 
 builder.Services.AddControllers();
 
-builder.Services.AddScoped<IVeiculoService, VeiculoService>();
+builder.Services.AddAutoMapper(typeof(GuardianLogProfile));
+
 builder.Services.AddScoped<IGeralRepository, GeralRepository>();
+builder.Services.AddScoped<IVeiculoService, VeiculoService>();
 builder.Services.AddScoped<IVeiculoRepository, VeiculoRepository>();
+builder.Services.AddScoped<ICidadeService, CidadeService>();
+builder.Services.AddScoped<ICidadeRepository, CidadeRepository>();
+
+builder.Services.Configure<JsonOptions>(options =>
+{
+    options.SerializerOptions.AllowTrailingCommas = true;
+    options.SerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+    options.SerializerOptions.MaxDepth = 64;
+});
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

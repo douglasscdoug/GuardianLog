@@ -1,15 +1,21 @@
+using AutoMapper;
 using GuardianLog.Application.Contratos;
+using GuardianLog.Application.Dtos;
 using GuardianLog.Domain;
 using GuardianLog.Repo.Contratos;
 
 namespace GuardianLog.Application;
 
-public class VeiculoService(IVeiculoRepository _veiculoRepository, IGeralRepository _geralRepository) : IVeiculoService
+public class VeiculoService(
+   IVeiculoRepository _veiculoRepository,
+   IGeralRepository _geralRepository,
+   IMapper _mapper) : IVeiculoService
 {
    public IVeiculoRepository VeiculoRepository { get; } = _veiculoRepository;
    public IGeralRepository GeralRepository { get; } = _geralRepository;
+   public IMapper Mapper { get; } = _mapper;
 
-   public async Task<Veiculo[]?> GetAllVeiculosAsync()
+   public async Task<VeiculoDto[]?> GetAllVeiculosAsync()
    {
       try
       {
@@ -18,7 +24,9 @@ public class VeiculoService(IVeiculoRepository _veiculoRepository, IGeralReposit
          if (veiculos == null)
             return null;
 
-         return veiculos;
+         var retorno = Mapper.Map<VeiculoDto[]>(veiculos);
+
+         return retorno;
       }
       catch (Exception ex)
       {
@@ -26,7 +34,7 @@ public class VeiculoService(IVeiculoRepository _veiculoRepository, IGeralReposit
       }
    }
 
-   public async Task<Veiculo?> GetVeiculoByIdAsync(int veiculoId)
+   public async Task<VeiculoDto?> GetVeiculoByIdAsync(int veiculoId)
    {
       try
       {
@@ -35,7 +43,9 @@ public class VeiculoService(IVeiculoRepository _veiculoRepository, IGeralReposit
          if (veiculo == null)
             return null;
 
-         return veiculo;
+         var retorno = Mapper.Map<VeiculoDto>(veiculo);
+
+         return retorno;
       }
       catch (Exception ex)
       {
@@ -43,7 +53,7 @@ public class VeiculoService(IVeiculoRepository _veiculoRepository, IGeralReposit
       }
    }
 
-   public async Task<Veiculo?> GetVeiculoByPlaca(string placa)
+   public async Task<VeiculoDto?> GetVeiculoByPlacaAsync(string placa)
    {
       try
       {
@@ -52,7 +62,9 @@ public class VeiculoService(IVeiculoRepository _veiculoRepository, IGeralReposit
          if (veiculo == null)
             return null;
 
-         return veiculo;
+         var retorno = Mapper.Map<VeiculoDto>(veiculo);
+
+         return retorno;
       }
       catch (Exception ex)
       {
@@ -60,10 +72,11 @@ public class VeiculoService(IVeiculoRepository _veiculoRepository, IGeralReposit
       }
    }
 
-   public async Task<bool> AddVeiculoAsync(Veiculo veiculo)
+   public async Task<bool> AddVeiculoAsync(VeiculoDto veiculoModel)
    {
       try
       {
+         var veiculo = Mapper.Map<Veiculo>(veiculoModel);
          GeralRepository.Add<Veiculo>(veiculo);
          return await GeralRepository.SaveChangesAsync();
       }
@@ -73,19 +86,23 @@ public class VeiculoService(IVeiculoRepository _veiculoRepository, IGeralReposit
       }
    }
 
-   public async Task<Veiculo?> UpdateVeiculoAsync(Veiculo veiculoNovo)
+   public async Task<VeiculoDto?> UpdateVeiculoAsync(VeiculoDto veiculoModel)
    {
       try
       {
-         var veiculo = await VeiculoRepository.GetVeiculoById(veiculoNovo.Id);
+         var veiculo = await VeiculoRepository.GetVeiculoById(veiculoModel.Id);
 
          if (veiculo == null)
             return null;
 
-         GeralRepository.Update(veiculoNovo);
+         veiculo = Mapper.Map<Veiculo>(veiculoModel);
+         GeralRepository.Update(veiculo);
 
          if (await GeralRepository.SaveChangesAsync())
-            return await VeiculoRepository.GetVeiculoById(veiculoNovo.Id);
+         {
+            var retorno = Mapper.Map<VeiculoDto>(await VeiculoRepository.GetVeiculoById(veiculo.Id));
+            return retorno;
+         }
 
          return null;
       }

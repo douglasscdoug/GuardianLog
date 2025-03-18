@@ -1,4 +1,5 @@
 using GuardianLog.Application.Contratos;
+using GuardianLog.Application.Dtos;
 using GuardianLog.Domain;
 using Microsoft.AspNetCore.Mvc;
 
@@ -49,7 +50,7 @@ namespace GuardianLog.API.Controllers
         {
             try
             {
-                var veiculo = await VeiculoService.GetVeiculoByPlaca(placa);
+                var veiculo = await VeiculoService.GetVeiculoByPlacaAsync(placa);
 
                 if (veiculo == null) return NotFound("Nenhum veículo encontrado");
 
@@ -62,7 +63,7 @@ namespace GuardianLog.API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post(Veiculo veiculo)
+        public async Task<IActionResult> Post(VeiculoDto veiculo)
         {
             try
             {
@@ -79,7 +80,7 @@ namespace GuardianLog.API.Controllers
         }
 
         [HttpPut]
-        public async Task<IActionResult> Put(Veiculo veiculoNovo)
+        public async Task<IActionResult> Put(VeiculoDto veiculoNovo)
         {
             try
             {

@@ -1,13 +1,13 @@
-using GuardianLog.Domain;
+using GuardianLog.Application.Dtos;
 
 namespace GuardianLog.Application.Contratos;
 
 public interface IVeiculoService
 {
-   Task<bool> AddVeiculoAsync(Veiculo veiculo);
-   Task<Veiculo?> UpdateVeiculoAsync(Veiculo veiculoNovo);
+   Task<bool> AddVeiculoAsync(VeiculoDto veiculoModel);
+   Task<VeiculoDto?> UpdateVeiculoAsync(VeiculoDto veiculoNovo);
    Task<bool> DeleteVeiculoAsync(int veiculoId);
-   Task<Veiculo[]?> GetAllVeiculosAsync();
-   Task<Veiculo?> GetVeiculoByIdAsync(int veiculoId);
-   Task<Veiculo?> GetVeiculoByPlaca(string placa);
+   Task<VeiculoDto[]?> GetAllVeiculosAsync();
+   Task<VeiculoDto?> GetVeiculoByIdAsync(int veiculoId);
+   Task<VeiculoDto?> GetVeiculoByPlacaAsync(string placa);
 }
