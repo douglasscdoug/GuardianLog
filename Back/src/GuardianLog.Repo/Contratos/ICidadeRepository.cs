@@ -7,4 +7,5 @@ public interface ICidadeRepository
    Task<Cidade[]> GetCidadesByEstadoIdAsync(int estadoId);
    Task<Cidade?> GetCidadeByCodIBGEAsync(int codIBGE);
    Task<Cidade[]> GetCidadesByNomeAsync(string nomeCidade);
+   Task<Cidade?> GetCidadeByIdAsync(int cidadeId);
 }

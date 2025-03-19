@@ -37,4 +37,13 @@ public class CidadeRepository(Context _context) : ICidadeRepository
 
       return await query.ToArrayAsync();
    }
+
+   public async Task<Cidade?> GetCidadeByIdAsync(int cidadeId)
+   {
+      IQueryable<Cidade> query = Context.Cidades;
+
+      query = query.AsNoTracking().Where(c => c.Id == cidadeId);
+
+      return await query.FirstOrDefaultAsync();
+   }
 }

@@ -25,6 +25,8 @@ builder.Services.AddScoped<IVeiculoService, VeiculoService>();
 builder.Services.AddScoped<IVeiculoRepository, VeiculoRepository>();
 builder.Services.AddScoped<ICidadeService, CidadeService>();
 builder.Services.AddScoped<ICidadeRepository, CidadeRepository>();
+builder.Services.AddScoped<ICorService, CorService>();
+builder.Services.AddScoped<ICorRepository, CorRepository>();
 
 builder.Services.Configure<JsonOptions>(options =>
 {
