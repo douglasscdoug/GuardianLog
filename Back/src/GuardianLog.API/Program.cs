@@ -31,6 +31,8 @@ builder.Services.AddScoped<IEstadoService, EstadoService>();
 builder.Services.AddScoped<IEstadoRepository, EstadoRepository>();
 builder.Services.AddScoped<IMarcaVeiculoService, MarcaVeiculoService>();
 builder.Services.AddScoped<IMarcaVeiculoRepository, MarcaVeiculoRepository>();
+builder.Services.AddScoped<IModeloVeiculoService, ModeloVeiculoService>();
+builder.Services.AddScoped<IModeloVeiculoRepository, ModeloVeiculoRepository>();
 
 builder.Services.Configure<JsonOptions>(options =>
 {
