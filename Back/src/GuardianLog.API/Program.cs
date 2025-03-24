@@ -27,6 +27,8 @@ builder.Services.AddScoped<ICidadeService, CidadeService>();
 builder.Services.AddScoped<ICidadeRepository, CidadeRepository>();
 builder.Services.AddScoped<ICorService, CorService>();
 builder.Services.AddScoped<ICorRepository, CorRepository>();
+builder.Services.AddScoped<IEstadoService, EstadoService>();
+builder.Services.AddScoped<IEstadoRepository, EstadoRepository>();
 
 builder.Services.Configure<JsonOptions>(options =>
 {
