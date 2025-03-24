@@ -33,6 +33,8 @@ builder.Services.AddScoped<IMarcaVeiculoService, MarcaVeiculoService>();
 builder.Services.AddScoped<IMarcaVeiculoRepository, MarcaVeiculoRepository>();
 builder.Services.AddScoped<IModeloVeiculoService, ModeloVeiculoService>();
 builder.Services.AddScoped<IModeloVeiculoRepository, ModeloVeiculoRepository>();
+builder.Services.AddScoped<IPaisService, PaisService>();
+builder.Services.AddScoped<IPaisRepository, PaisRepository>();
 
 builder.Services.Configure<JsonOptions>(options =>
 {
