@@ -2,7 +2,7 @@ namespace GuardianLog.Domain.Enum;
 
 public enum TipoVinculo
 {
-   Agregado,
-   Frota,
-   Terceiro
+   Agregado = 1,
+   Frota = 2,
+   Terceiro = 3
 }

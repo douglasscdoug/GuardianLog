@@ -18,5 +18,6 @@ public class GuardianLogProfile : Profile
       CreateMap<Pais, PaisDto>().ReverseMap();
       CreateMap<TecnologiaRastreamento, TecnologiaRastreamentoDto>().ReverseMap();
       CreateMap<TipoCarreta, TipoCarretaDto>().ReverseMap();
+      CreateMap<TipoVeiculo, TipoVeiculoDto>().ReverseMap();
    }
 }

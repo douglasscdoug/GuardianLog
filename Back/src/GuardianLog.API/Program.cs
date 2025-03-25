@@ -39,6 +39,8 @@ builder.Services.AddScoped<ITecnologiaService, TecnologiaService>();
 builder.Services.AddScoped<ITecnologiaRepository, TecnologiaRepository>();
 builder.Services.AddScoped<ITipoCarretaService, TipoCarretaService>();
 builder.Services.AddScoped<ITipoCarretaRepository, TipoCarretaRepository>();
+builder.Services.AddScoped<ITipoVeiculoService, TipoVeiculoService>();
+builder.Services.AddScoped<ITipoVeiculoRepository, TipoVeiculoRepository>();
 
 builder.Services.Configure<JsonOptions>(options =>
 {
