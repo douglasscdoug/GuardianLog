@@ -3,19 +3,23 @@ using GuardianLog.Application.Contratos;
 using GuardianLog.Application.Dtos;
 using GuardianLog.Domain;
 using GuardianLog.Repo.Contratos;
+using Microsoft.Extensions.Logging;
 
 namespace GuardianLog.Application;
 
 public class VeiculoService(
    IVeiculoRepository _veiculoRepository,
    IGeralRepository _geralRepository,
-   IMapper _mapper) : IVeiculoService
+   IMapper _mapper,
+   ILogger<VeiculoService> _logger
+   ) : IVeiculoService
 {
    public IVeiculoRepository VeiculoRepository { get; } = _veiculoRepository;
    public IGeralRepository GeralRepository { get; } = _geralRepository;
    public IMapper Mapper { get; } = _mapper;
+    public ILogger<VeiculoService> Logger { get; } = _logger;
 
-   public async Task<VeiculoDto[]?> GetAllVeiculosAsync()
+    public async Task<VeiculoDto[]?> GetAllVeiculosAsync()
    {
       try
       {
@@ -78,7 +82,14 @@ public class VeiculoService(
       {
          var veiculo = Mapper.Map<Veiculo>(veiculoModel);
          GeralRepository.Add<Veiculo>(veiculo);
-         return await GeralRepository.SaveChangesAsync();
+         var result = await GeralRepository.SaveChangesAsync();
+
+         if(!result)
+         {
+            Logger.LogWarning("Falha ao salvar as alterações");
+         }
+
+         return result;
       }
       catch (Exception ex)
       {

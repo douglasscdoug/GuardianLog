@@ -1,3 +1,5 @@
+using GuardianLog.Domain.Enum;
+
 namespace GuardianLog.Domain;
 
 public class Veiculo
@@ -18,8 +20,7 @@ public class Veiculo
    public required string Renavam { get; set; }
    public required Cidade Cidade { get; set; }
    public int IdCidade { get; set; }
-   public required TipoVinculo TipoVinculo { get; set; }
-   public int IdTipoVinculo { get; set; }
+   public TipoVinculo TipoVinculo { get; set; }
    public required TecnologiaRastreamento Tecnologia { get; set; }
    public int IdTecnologia { get; set; }
    public int IdEquipamento { get; set; }

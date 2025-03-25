@@ -1,3 +1,5 @@
+using GuardianLog.Domain.Enum;
+
 namespace GuardianLog.Application.Dtos;
 
 public class VeiculoDto
@@ -13,7 +15,7 @@ public class VeiculoDto
    public int IdCor { get; set; }
    public required string Renavam { get; set; }
    public int IdCidade { get; set; }
-   public int IdTipoVinculo { get; set; }
+   public TipoVinculo TipoVinculo { get; set; }
    public int IdTecnologia { get; set; }
    public int IdEquipamento { get; set; }
    public DateTime DataCadastro { get; set; }

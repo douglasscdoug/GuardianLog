@@ -14,7 +14,6 @@ public class Context(DbContextOptions<Context> options) : DbContext(options)
    public DbSet<TecnologiaRastreamento> TecnologiasRastreamento { get; set; }
    public DbSet<TipoCarreta> TiposCarreta { get; set; }
    public DbSet<TipoVeiculo> TiposVeiculo { get; set; }
-   public DbSet<TipoVinculo> TiposVinculo { get; set; }
    public DbSet<Veiculo> Veiculos { get; set; }
 
    protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -122,16 +121,6 @@ public class Context(DbContextOptions<Context> options) : DbContext(options)
          }
         );
 
-        modelBuilder.Entity<TipoVinculo>(
-         vinculo => {
-            vinculo.HasData(
-               new TipoVinculo{Id = 1, Nome = "Agregado"},
-               new TipoVinculo{Id = 2, Nome = "Frota"},
-               new TipoVinculo{Id = 3, Nome = "Terceiro"}
-            );
-         }
-        );
-
         modelBuilder.Entity<Veiculo>(
          veiculo => {
             veiculo.HasOne(v => v.TipoVeiculo)
@@ -157,11 +146,6 @@ public class Context(DbContextOptions<Context> options) : DbContext(options)
             veiculo.HasOne(v => v.Cidade)
             .WithMany(c => c.Veiculos)
             .HasForeignKey(v => v.IdCidade)
-            .OnDelete(DeleteBehavior.Restrict);
-
-            veiculo.HasOne(v => v.TipoVinculo)
-            .WithMany(tv => tv.Veiculos)
-            .HasForeignKey(v => v.IdTipoVinculo)
             .OnDelete(DeleteBehavior.Restrict);
 
             veiculo.HasOne(v => v.Tecnologia)

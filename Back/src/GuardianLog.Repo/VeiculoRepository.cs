@@ -13,7 +13,6 @@ public class VeiculoRepository(Context _context) : IVeiculoRepository
     {
         IQueryable<Veiculo> query = Context.Veiculos
             .Include(v => v.Cor)
-            .Include(v => v.TipoVinculo)
             .Include(v => v.ModeloVeiculo);
 
         return await query.ToArrayAsync();
@@ -23,7 +22,6 @@ public class VeiculoRepository(Context _context) : IVeiculoRepository
     {
         IQueryable<Veiculo> query = Context.Veiculos
             .Include(v => v.Cor)
-            .Include(v => v.TipoVinculo)
             .Include(v => v.ModeloVeiculo);
 
         query = query.AsNoTracking().OrderBy(v => v.Id).Where(v => v.Id == veiculoId);
@@ -35,7 +33,6 @@ public class VeiculoRepository(Context _context) : IVeiculoRepository
     {
         IQueryable<Veiculo> query = Context.Veiculos
             .Include(v => v.Cor)
-            .Include(v => v.TipoVinculo)
             .Include(v => v.ModeloVeiculo);
 
         query = query.AsNoTracking().OrderBy(v => v.Id).Where(v => v.Placa.ToLower().Contains(placa.ToLower()));
