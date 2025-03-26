@@ -24,6 +24,4 @@ public class Veiculo
    public required TecnologiaRastreamento Tecnologia { get; set; }
    public int IdTecnologia { get; set; }
    public int IdEquipamento { get; set; }
-   public DateTime DataCadastro { get; set; }
-   public DateTime ? DataAlteracao { get; set; }
 }

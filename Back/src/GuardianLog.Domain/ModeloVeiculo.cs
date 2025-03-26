@@ -6,7 +6,5 @@ public class ModeloVeiculo
    public required string NomeModelo { get; set; }
    public required MarcaVeiculo MarcaVeiculo { get; set; }
    public int IdMarcaVeiculo { get; set; }
-   public DateTime DataCadastro { get; set; }
-   public DateTime ? DataAlteracao { get; set; }
    public List<Veiculo> Veiculos { get; set; } = [];
 }

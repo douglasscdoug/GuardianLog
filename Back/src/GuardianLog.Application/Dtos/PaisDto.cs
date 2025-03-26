@@ -4,5 +4,6 @@ public class PaisDto
 {
    public int Id { get; set; }
    public required string Nome { get; set; }
+   public required string Nacionalidade { get; set; }
    public List<EstadoDto> Estados { get; set; } = [];
 }

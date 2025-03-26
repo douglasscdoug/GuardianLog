@@ -18,6 +18,4 @@ public class VeiculoDto
    public TipoVinculo TipoVinculo { get; set; }
    public int IdTecnologia { get; set; }
    public int IdEquipamento { get; set; }
-   public DateTime DataCadastro { get; set; }
-   public DateTime ? DataAlteracao { get; set; }
 }
