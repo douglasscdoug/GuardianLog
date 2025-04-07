@@ -50,6 +50,19 @@ public class Context(DbContextOptions<Context> options) : DbContext(options)
          }
       );
 
+      modelBuilder.Entity<Contato>(
+         contato =>
+         {
+            contato.HasOne(c => c.Empresa)
+            .WithOne(e => e.Contato)
+            .HasForeignKey<Contato>(c => c.IdEmpresa);
+
+            contato.HasOne(c => c.PessoaFisica)
+            .WithOne(p => p.Contato)
+            .HasForeignKey<Contato>(c => c.IdPessoaFisica);
+         }
+      );
+
       modelBuilder.Entity<Cor>(
          cor =>
          {
@@ -86,6 +99,11 @@ public class Context(DbContextOptions<Context> options) : DbContext(options)
       modelBuilder.Entity<Endereco>(
          endereco =>
          {
+            endereco.HasOne(e => e.Cep)
+            .WithMany()
+            .HasForeignKey(e => e.IdCep)
+            .OnDelete(DeleteBehavior.Restrict);
+
             endereco.HasOne(e => e.Empresa)
             .WithOne(e => e.Endereco)
             .HasForeignKey<Endereco>(e => e.IdEmpresa);

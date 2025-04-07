@@ -3,7 +3,7 @@ namespace GuardianLog.Domain;
 public class Endereco
 {
    public int Id { get; set; }
-   public required CEP Cep { get; set; }
+   public CEP ? Cep { get; set; }
    public int IdCep { get; set; }
    public int Numero { get; set; }
    public string ? Complemento { get; set; }

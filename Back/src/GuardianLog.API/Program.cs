@@ -21,12 +21,14 @@ builder.Services.AddControllers();
 builder.Services.AddAutoMapper(typeof(GuardianLogProfile));
 
 builder.Services.AddScoped<IGeralRepository, GeralRepository>();
-builder.Services.AddScoped<IVeiculoService, VeiculoService>();
-builder.Services.AddScoped<IVeiculoRepository, VeiculoRepository>();
+builder.Services.AddScoped<ICepService, CepService>();
+builder.Services.AddScoped<ICepRepository, CepRepository>();
 builder.Services.AddScoped<ICidadeService, CidadeService>();
 builder.Services.AddScoped<ICidadeRepository, CidadeRepository>();
 builder.Services.AddScoped<ICorService, CorService>();
 builder.Services.AddScoped<ICorRepository, CorRepository>();
+builder.Services.AddScoped<IEmpresaService, EmpresaService>();
+builder.Services.AddScoped<IEmpresaRepository, EmpresaRepository>();
 builder.Services.AddScoped<IEstadoService, EstadoService>();
 builder.Services.AddScoped<IEstadoRepository, EstadoRepository>();
 builder.Services.AddScoped<IMarcaVeiculoService, MarcaVeiculoService>();
@@ -41,6 +43,8 @@ builder.Services.AddScoped<ITipoCarretaService, TipoCarretaService>();
 builder.Services.AddScoped<ITipoCarretaRepository, TipoCarretaRepository>();
 builder.Services.AddScoped<ITipoVeiculoService, TipoVeiculoService>();
 builder.Services.AddScoped<ITipoVeiculoRepository, TipoVeiculoRepository>();
+builder.Services.AddScoped<IVeiculoService, VeiculoService>();
+builder.Services.AddScoped<IVeiculoRepository, VeiculoRepository>();
 
 builder.Services.Configure<JsonOptions>(options =>
 {

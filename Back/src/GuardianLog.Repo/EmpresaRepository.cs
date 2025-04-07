@@ -1,0 +1,59 @@
+using GuardianLog.Domain;
+using GuardianLog.Repo.Contexts;
+using GuardianLog.Repo.Contratos;
+using Microsoft.EntityFrameworkCore;
+
+namespace GuardianLog.Repo;
+
+public class EmpresaRepository(Context _context) : IEmpresaRepository
+{
+    public Context Context { get; } = _context;
+
+    public async Task<Empresa[]?> GetAllEmpresasAsync()
+    {
+        IQueryable<Empresa> query = Context.Empresas;
+
+        query = query.OrderBy(e => e.NomeFantasia);
+
+        return await query.ToArrayAsync();
+    }
+
+    public async Task<Empresa[]?> GetEmpresasByNomeAsync(string nomeEmpresa)
+    {
+        IQueryable<Empresa> query = Context.Empresas;
+
+        query = query.Where(e => e.NomeFantasia.ToLower().Contains(nomeEmpresa));
+
+        return await query.ToArrayAsync();
+    }
+
+    public async Task<Empresa?> GetEmpresaByIdAsync(int empresaId)
+    {
+        IQueryable<Empresa> query = Context.Empresas;
+
+        query = query.Include(e => e.Endereco).Include(e => e.Contato);
+
+        query = query.AsNoTracking().Where(e => e.Id == empresaId);
+
+        return await query.FirstOrDefaultAsync();
+    }
+
+    public async Task<Endereco> SalvarEnderecoAsync(Endereco endereco)
+    {
+        Context.Add(endereco);
+        await Context.SaveChangesAsync();
+        return endereco;
+    }
+
+    public async Task<Contato> SalvarContatoAsync(Contato contato)
+    {
+        Context.Add(contato);
+        await Context.SaveChangesAsync();
+        return contato;
+    }
+
+    public async Task<Contato?> GetContatoById(int contatoId)
+    {
+        return await Context.Contatos.FindAsync(contatoId);
+    }
+}

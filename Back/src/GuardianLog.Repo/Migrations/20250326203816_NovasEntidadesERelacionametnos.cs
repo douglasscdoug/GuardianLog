@@ -203,7 +203,6 @@ namespace GuardianLog.Repo.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    CepId = table.Column<int>(type: "int", nullable: false),
                     IdCep = table.Column<int>(type: "int", nullable: false),
                     Numero = table.Column<int>(type: "int", nullable: false),
                     Complemento = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -215,7 +214,7 @@ namespace GuardianLog.Repo.Migrations
                     table.PrimaryKey("PK_Enderecos", x => x.Id);
                     table.ForeignKey(
                         name: "FK_Enderecos_CEPs_CepId",
-                        column: x => x.CepId,
+                        column: x => x.IdCep,
                         principalTable: "CEPs",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
