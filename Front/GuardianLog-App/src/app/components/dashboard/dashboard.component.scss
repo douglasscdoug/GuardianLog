@@ -1,0 +1,21 @@
+/* dashboard.component.scss */
+.container-fluid {
+    height: 100vh;
+  }
+  
+  .row {
+    height: 100%;
+  }
+  
+  .bg-light {
+    background-color: #f8f9fa !important;
+  }
+  
+  .list-group-item {
+    font-weight: bold;
+  }
+  
+  .list-group-item-action:hover {
+    background-color: #e2e6ea;
+  }
+  

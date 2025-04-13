@@ -59,7 +59,8 @@ public class Context(DbContextOptions<Context> options) : DbContext(options)
 
             contato.HasOne(c => c.PessoaFisica)
             .WithOne(p => p.Contato)
-            .HasForeignKey<Contato>(c => c.IdPessoaFisica);
+            .HasForeignKey<Contato>(c => c.IdPessoaFisica)
+            .OnDelete(DeleteBehavior.Restrict);
          }
       );
 
@@ -88,11 +89,11 @@ public class Context(DbContextOptions<Context> options) : DbContext(options)
          {
             empresa.HasOne(e => e.Endereco)
             .WithOne(e => e.Empresa)
-            .HasForeignKey<Empresa>(e => e.IdEndereco);
+            .HasForeignKey<Endereco>(e => e.IdEmpresa);
 
             empresa.HasOne(e => e.Contato)
             .WithOne(c => c.Empresa)
-            .HasForeignKey<Empresa>(e => e.IdContato);
+            .HasForeignKey<Contato>(c => c.IdEmpresa);
          }
       );
 
@@ -106,11 +107,13 @@ public class Context(DbContextOptions<Context> options) : DbContext(options)
 
             endereco.HasOne(e => e.Empresa)
             .WithOne(e => e.Endereco)
-            .HasForeignKey<Endereco>(e => e.IdEmpresa);
+            .HasForeignKey<Endereco>(e => e.IdEmpresa)
+            .OnDelete(DeleteBehavior.Restrict);
 
             endereco.HasOne(e => e.PessoaFisica)
             .WithOne(p => p.Endereco)
-            .HasForeignKey<Endereco>(e => e.IdPessoaFisica);
+            .HasForeignKey<Endereco>(e => e.IdPessoaFisica)
+            .OnDelete(DeleteBehavior.Restrict);
          }
       );
 
@@ -151,6 +154,13 @@ public class Context(DbContextOptions<Context> options) : DbContext(options)
          }
       );
 
+      modelBuilder.Entity<Motorista>(
+         motorista =>
+         {
+            motorista.ToTable("Motoristas");
+         }
+      );
+
       modelBuilder.Entity<Pais>(
          pais =>
          {
@@ -172,8 +182,14 @@ public class Context(DbContextOptions<Context> options) : DbContext(options)
             .OnDelete(DeleteBehavior.Restrict);
 
             pessoaFisica.HasOne(p => p.Contato)
-            .WithOne(c => c.PessoaFisica)
-            .HasForeignKey<PessoaFisica>(p => p.IdContato);
+            .WithOne(c => c.PessoaFisica);
+
+            pessoaFisica.HasOne(p => p.Estado)
+            .WithMany(e => e.PessoasFisicas)
+            .HasForeignKey(p => p.IdEstadoRG)
+            .OnDelete(DeleteBehavior.Restrict);
+
+            pessoaFisica.ToTable("PessoasFisicas");
          }
       );
 

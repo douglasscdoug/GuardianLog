@@ -1,0 +1,49 @@
+<div
+  class="d-flex justify-content-center align-items-center min-vh-100 bg-light"
+>
+  <div class="card p-4 shadow" style="width: 100%; max-width: 400px">
+    <div class="text-center mb-3">
+      <img
+        src="assets/images/logistic.png"
+        alt="Logo logística"
+        width="64"
+        height="64"
+        class="mb-2"
+      />
+      <h4 class="mb-0">GuardianLog</h4>
+      <small class="text-muted">Gerenciamento de Risco</small>
+    </div>
+
+    <form (ngSubmit)="entrar()">
+      <div class="mb-3">
+        <label for="login" class="form-label">Login</label>
+        <input
+          type="text"
+          id="login"
+          class="form-control"
+          [(ngModel)]="login"
+          name="login"
+          required
+        />
+      </div>
+
+      <div class="mb-3">
+        <label for="password" class="form-label">Senha</label>
+        <input
+          type="password"
+          id="password"
+          class="form-control"
+          [(ngModel)]="password"
+          name="password"
+          required
+        />
+      </div>
+
+      <div *ngIf="errorMessage" class="alert alert-danger">
+        {{ errorMessage }}
+      </div>
+
+      <button type="submit" class="btn btn-primary w-100">Entrar</button>
+    </form>
+  </div>
+</div>

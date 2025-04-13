@@ -1,0 +1,82 @@
+<nav class="navbar navbar-dark bg-primary">
+  <div class="container-fluid">
+    <div class="d-flex align-items-center gap-2">
+      <!-- Botão que abre o offcanvas -->
+      <button class="navbar-toggler" type="button" (click)="isMenuOpen = true">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <!-- Logo ou título -->
+      <a class="navbar-brand" routerLink="dashboard">
+        <i class="fa-solid fa-guarani-sign"></i>
+        GuardianLog
+      </a>
+    </div>
+    <!-- Perfil -->
+    <!-- Perfil -->
+<div class="dropdown d-flex align-items-center ms-auto" dropdown>
+  <a
+    bsDropdownToggle
+    class="nav-link text-white dropdown-toggle"
+    style="cursor: pointer"
+    id="userDropdown"
+    aria-expanded="false"
+  >
+    Olá, Usuário
+  </a>
+  <ul
+    *dropdownMenu
+    class="dropdown-menu dropdown-menu-end"
+    aria-labelledby="userDropdown"
+  >
+    <li><a class="dropdown-item" routerLink="/user/perfil">Perfil</a></li>
+    <li><hr class="dropdown-divider" /></li>
+    <li><a class="dropdown-item" style="cursor: pointer">Sair</a></li>
+  </ul>
+</div>
+
+
+    <!-- Offcanvas lateral -->
+    <div
+      class="offcanvas offcanvas-start text-bg-primary"
+      [class.show]="isMenuOpen"
+      [style.visibility]="isMenuOpen ? 'visible' : 'hidden'"
+      [style.transform]="isMenuOpen ? 'translateX(0)' : 'translateX(-100%)'"
+      style="transition: transform 0.3s ease-in-out; width: 250px"
+    >
+      <div class="offcanvas-header">
+        <h5 class="offcanvas-title">GuardianLog</h5>
+        <button
+          type="button"
+          class="btn-close btn-close-dark"
+          (click)="isMenuOpen = false"
+        ></button>
+      </div>
+
+      <div class="offcanvas-body">
+        <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="#"
+              >Dashboard</a
+            >
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Empresas</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Motoristas</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Veículos</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Viagens</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Usuários</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</nav>

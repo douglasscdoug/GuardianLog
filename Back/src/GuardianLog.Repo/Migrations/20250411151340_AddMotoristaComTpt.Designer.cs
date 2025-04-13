@@ -4,6 +4,7 @@ using GuardianLog.Repo.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GuardianLog.Repo.Migrations
 {
     [DbContext(typeof(Context))]
-    partial class ContextModelSnapshot : ModelSnapshot
+    [Migration("20250411151340_AddMotoristaComTpt")]
+    partial class AddMotoristaComTpt
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -470,6 +473,9 @@ namespace GuardianLog.Repo.Migrations
                     b.Property<DateTime>("DataNascimento")
                         .HasColumnType("datetime2");
 
+                    b.Property<int>("EstadoId")
+                        .HasColumnType("int");
+
                     b.Property<int>("IdContato")
                         .HasColumnType("int");
 
@@ -500,7 +506,7 @@ namespace GuardianLog.Repo.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("IdEstadoRG");
+                    b.HasIndex("EstadoId");
 
                     b.HasIndex("IdOrgaoEmissor");
 
@@ -823,9 +829,9 @@ namespace GuardianLog.Repo.Migrations
             modelBuilder.Entity("GuardianLog.Domain.PessoaFisica", b =>
                 {
                     b.HasOne("GuardianLog.Domain.Estado", "Estado")
-                        .WithMany("PessoasFisicas")
-                        .HasForeignKey("IdEstadoRG")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .WithMany()
+                        .HasForeignKey("EstadoId")
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("GuardianLog.Domain.OrgaoEmissor", "OrgaoEmissor")
@@ -920,8 +926,6 @@ namespace GuardianLog.Repo.Migrations
             modelBuilder.Entity("GuardianLog.Domain.Estado", b =>
                 {
                     b.Navigation("Cidades");
-
-                    b.Navigation("PessoasFisicas");
                 });
 
             modelBuilder.Entity("GuardianLog.Domain.MarcaVeiculo", b =>
@@ -946,9 +950,11 @@ namespace GuardianLog.Repo.Migrations
 
             modelBuilder.Entity("GuardianLog.Domain.PessoaFisica", b =>
                 {
-                    b.Navigation("Contato");
+                    b.Navigation("Contato")
+                        .IsRequired();
 
-                    b.Navigation("Endereco");
+                    b.Navigation("Endereco")
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("GuardianLog.Domain.TecnologiaRastreamento", b =>

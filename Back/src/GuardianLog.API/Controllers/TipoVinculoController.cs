@@ -16,24 +16,7 @@ namespace GuardianLog.API.Controllers
         {
             try
             {
-                var tiposVinculo = Enum.GetValues(typeof(TipoVinculo));
-                var tipoVinculoList = new List<TipoVinculoDto>();
-
-                foreach (var tipo in tiposVinculo)
-                {
-                    if (Enum.IsDefined(typeof(TipoVinculo), tipo))
-                    {
-#pragma warning disable CS8601 // Possible null reference assignment.
-                        tipoVinculoList.Add(new TipoVinculoDto
-                        {
-                            Id = (int)tipo,
-                            Nome = tipo.ToString()
-                        });
-#pragma warning restore CS8601 // Possible null reference assignment.
-                    }
-                }
-
-                return Ok(tipoVinculoList);
+                return Ok();
             }
             catch (System.Exception)
             {

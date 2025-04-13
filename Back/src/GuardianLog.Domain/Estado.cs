@@ -9,4 +9,5 @@ public class Estado
    public required Pais Pais { get; set; }
    public int IdPais { get; set; }
    public List<Cidade> Cidades { get; set; } = [];
+   public List<PessoaFisica> PessoasFisicas { get; set; } = [];
 }

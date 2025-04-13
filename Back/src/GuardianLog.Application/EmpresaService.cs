@@ -86,9 +86,12 @@ public class EmpresaService(
                 Email = model.Contato.Email
             };
 
+            contato = await EmpresaRepository.SalvarContatoAsync(contato);
+
             var empresa = Mapper.Map<Empresa>(model);
             empresa.IdEndereco = endereco.Id;
             empresa.Endereco = endereco;
+            empresa.IdContato = contato.Id;
             empresa.Contato = contato;
         
             GeralRepository.Add(empresa);
