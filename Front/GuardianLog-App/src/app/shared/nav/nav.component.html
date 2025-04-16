@@ -7,7 +7,7 @@
       </button>
 
       <!-- Logo ou título -->
-      <a class="navbar-brand" routerLink="dashboard">
+      <a class="navbar-brand" routerLink="home">
         <i class="fa-solid fa-guarani-sign"></i>
         GuardianLog
       </a>
@@ -56,24 +56,19 @@
       <div class="offcanvas-body">
         <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#"
-              >Dashboard</a
-            >
+            <a class="nav-link" routerLink="empresas" (click)="isMenuOpen = false">Empresas</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Empresas</a>
+            <a class="nav-link" routerLink="motoristas" (click)="isMenuOpen = false">Motoristas</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Motoristas</a>
+            <a class="nav-link" routerLink="veiculos" (click)="isMenuOpen = false">Veículos</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Veículos</a>
+            <a class="nav-link" routerLink="viagens" (click)="isMenuOpen = false">Viagens</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Viagens</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Usuários</a>
+            <a class="nav-link" routerLink="usuarios" (click)="isMenuOpen = false">Usuários</a>
           </li>
         </ul>
       </div>
