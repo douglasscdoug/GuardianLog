@@ -4,8 +4,7 @@ using Microsoft.EntityFrameworkCore;
 namespace GuardianLog.Repo.Contexts;
 
 public class Context(DbContextOptions<Context> options) : DbContext(options)
-{
-   public DbSet<CEP> CEPs { get; set; }
+{  
    public DbSet<Cidade> Cidades { get; set; }
    public DbSet<Contato> Contatos { get; set; }
    public DbSet<Cor> Cores { get; set; }
@@ -25,18 +24,6 @@ public class Context(DbContextOptions<Context> options) : DbContext(options)
 
    protected override void OnModelCreating(ModelBuilder modelBuilder)
    {
-      modelBuilder.Entity<CEP>(
-         cep =>
-         {
-            cep.HasOne(c => c.Cidade)
-            .WithMany(c => c.CEPs)
-            .HasPrincipalKey(c => c.CodCidadeIBGE)
-            .HasForeignKey(c => c.IdCidade)
-            .IsRequired(false)
-            .OnDelete(DeleteBehavior.Restrict);
-         }
-      );
-
       modelBuilder.Entity<Cidade>(
          cidade =>
          {
@@ -100,9 +87,9 @@ public class Context(DbContextOptions<Context> options) : DbContext(options)
       modelBuilder.Entity<Endereco>(
          endereco =>
          {
-            endereco.HasOne(e => e.Cep)
-            .WithMany()
-            .HasForeignKey(e => e.IdCep)
+            endereco.HasOne(e => e.Cidade)
+            .WithMany(c => c.Enderecos)
+            .HasForeignKey(e => e.IdCidade)
             .OnDelete(DeleteBehavior.Restrict);
 
             endereco.HasOne(e => e.Empresa)

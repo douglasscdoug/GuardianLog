@@ -1,5 +1,5 @@
 import { Contato } from "./Contato";
-import { Endereco } from "./endereco";
+import { Endereco } from "./Endereco";
 
 export interface Empresa {
     id: number;

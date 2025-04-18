@@ -27,15 +27,13 @@ public class EmpresaRepository(Context _context) : IEmpresaRepository
         return await query.ToArrayAsync();
     }
 
-    public async Task<Empresa?> GetEmpresaByIdAsync(int empresaId)
+    public IQueryable<Empresa> GetEmpresaByIdQuery(int empresaId)
     {
-        IQueryable<Empresa> query = Context.Empresas;
-
-        query = query.Include(e => e.Endereco).Include(e => e.Contato);
-
-        query = query.AsNoTracking().Where(e => e.Id == empresaId);
-
-        return await query.FirstOrDefaultAsync();
+        return Context.Empresas
+            .AsNoTracking()
+            .Include(e => e.Endereco!).ThenInclude(e => e.Cidade!).ThenInclude(c => c.Estado)
+            .Include(e => e.Contato)
+            .Where(e => e.Id == empresaId);
     }
 
     public async Task<Endereco> SalvarEnderecoAsync(Endereco endereco)

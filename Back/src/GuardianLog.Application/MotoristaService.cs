@@ -10,14 +10,12 @@ namespace GuardianLog.Application;
 public class MotoristaService(
     IMotoristaRepository _motoristaRepository,
     IGeralRepository _geralRepository,
-    IMapper _mapper,
-    ICepService _cepService
+    IMapper _mapper
 ) : IMotoristaService
 {
     public IMotoristaRepository MotoristaRepository { get; } = _motoristaRepository;
     public IGeralRepository GeralRepository { get; } = _geralRepository;
     public IMapper Mapper { get; } = _mapper;
-    public ICepService CepService { get; } = _cepService;
 
     public async Task<MotoristaDto[]?> GetAllMotoristasAsync()
     {

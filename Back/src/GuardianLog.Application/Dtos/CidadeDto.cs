@@ -8,4 +8,5 @@ public class CidadeDto
    public int ? CodCidadeIBGE { get; set; }
    public required string NomeCidade { get; set; }
    public int IdEstado { get; set; }
+   public EstadoDto ? Estado { get; set; }
 }

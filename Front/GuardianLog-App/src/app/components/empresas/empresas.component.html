@@ -1,56 +1,5 @@
 <app-titulo
-  [titulo]="'Empresas'"
+  [titulo]="'Empresa'"
   [iconClass]="'fa-solid fa-building'"
 ></app-titulo>
-<div class="card rounded shadow-sm p-2">
-  <div class="row">
-    <div class="form-group col-md-2">
-      <label>CNPJ:</label>
-      <input class="form-control" />
-    </div>
-    <div class="form-group col-md-4">
-      <label>Razão social ou Nome fantasia</label>
-      <input class="form-control" />
-    </div>
-    <div class="form-group col-md-2">
-      <span class="btn btn-primary mt-4">
-        <i class="fa fa-magnifying-glass"></i>
-        Buscar
-      </span>
-      <span class="btn btn-success mt-4 ms-1">
-        <i class="fa fa-plus-circle"></i>
-        Inserir
-      </span>
-    </div>
-  </div>
-</div>
-<table class="table table-secondary table-striped table-hover">
-  <thead>
-    <tr>
-      <th class="w-acao">Ação</th>
-      <th class="w-id">Id</th>
-      <th class="w-nome">Nome fantasia</th>
-      <th class="w-cliente">Cliente</th>
-      <th class="w-tipo">Tipo</th>
-      <th class="w-cnpj">CNPJ</th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <tr *ngFor="let empresa of empresas">
-      <td>
-        <button class="btn btn-primary" type="button" tooltip="Editar">
-          <i class="fa-solid fa-pen-to-square"></i>
-        </button>
-      </td>
-      <td>{{ empresa.id }}</td>
-      <td>{{ empresa.nomeFantasia }}</td>
-      <td>{{ empresa.ehCliente }}</td>
-      <td>{{ empresa.tipoEmpresa }}</td>
-      <td>{{ empresa.cnpj }}</td>
-    </tr>
-  </tbody>
-  <tfoot>
-    <tr></tr>
-  </tfoot>
-</table>
+<router-outlet></router-outlet>

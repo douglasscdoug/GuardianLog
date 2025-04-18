@@ -1,11 +1,8 @@
-import { CEP } from "./CEP";
-
 export interface Endereco {
-     id: number;
-     cep: CEP;
-     idCep: number;
+     cep: string;
+     logradouro: string;
+     bairro: string;
      numero: number;
      complemento: string;
-     idEmpresa: number;
-     idPessoaFisica: number;
+     estado: string;
 }

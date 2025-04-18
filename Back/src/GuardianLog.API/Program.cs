@@ -21,8 +21,6 @@ builder.Services.AddControllers();
 builder.Services.AddAutoMapper(typeof(GuardianLogProfile));
 
 builder.Services.AddScoped<IGeralRepository, GeralRepository>();
-builder.Services.AddScoped<ICepService, CepService>();
-builder.Services.AddScoped<ICepRepository, CepRepository>();
 builder.Services.AddScoped<ICidadeService, CidadeService>();
 builder.Services.AddScoped<ICidadeRepository, CidadeRepository>();
 builder.Services.AddScoped<ICorService, CorService>();

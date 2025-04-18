@@ -6,7 +6,7 @@ public class EmpresaDto
    public required string CNPJ { get; set; }
    public required string RazaoSocial { get; set; }
    public required string NomeFantasia { get; set; }
-   public EnderecoDto ? Endereco { get; set; }
+   public EnderecoCompletoDto ? Endereco { get; set; }
    public int IdEndereco { get; set; }
    public ContatoDto ? Contato { get; set; }
    public int IdContato { get; set; }
