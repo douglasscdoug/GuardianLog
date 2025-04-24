@@ -1,0 +1,50 @@
+<div class="card rounded shadow-sm p-2">
+    <div class="row">
+      <div class="form-group col-md-6">
+        <label>Pesquisar</label>
+        <input class="form-control" [(ngModel)]="filtroLista" placeholder="Digite o nome, sobrenome, CPF, RG ou CNH">
+      </div>
+      <div class="form-group col-md-2">
+        <span class="btn btn-success mt-4 ms-1" routerLink="/motoristas/detalhe">
+          <i class="fa fa-plus-circle"></i>
+          Inserir
+        </span>
+      </div>
+    </div>
+  </div>
+  <table class="table table-secondary table-striped table-hover">
+    <thead>
+      <tr>
+        <th>Ação</th>
+        <th>Id</th>
+        <th>Nome</th>
+        <th>Sobrenome</th>
+        <th>Data Nascimento</th>
+        <th>CPF</th>
+        <th>RG</th>
+        <th>CNH</th>
+        <th>Vinculo</th>
+      </tr>
+    </thead>
+  
+    <tbody>
+      <tr *ngFor="let motorista of motoristasFiltrados">
+        <td>
+          <button title="Editar" class="btn btn-sm btn-primary" type="button" tooltip="Editar" (click)="detalheMotorista(motorista.id)">
+            <i class="fa-solid fa-pen-to-square"></i>
+          </button>
+        </td>
+        <td>{{ motorista.id }}</td>
+        <td>{{ motorista.nome }}</td>
+        <td>{{ motorista.sobrenome }}</td>
+        <td>{{ motorista.dataNascimento | dataPtBr }}</td>
+        <td>{{ motorista.numeroCPF }}</td>
+        <td>{{ motorista.numeroRG }}</td>
+        <td>{{ motorista.numeroCNH }}</td>
+        <td>{{ tipoVinculo(motorista.tipoVinculo)}}</td>
+      </tr>
+    </tbody>
+    <tfoot>
+      <tr></tr>
+    </tfoot>
+  </table>
