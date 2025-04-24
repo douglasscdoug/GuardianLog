@@ -67,11 +67,11 @@ namespace GuardianLog.API.Controllers
         {
             try
             {
-                var result = await EmpresaService.AddEmpresaAsync(model);
+                var empresa = await EmpresaService.AddEmpresaAsync(model);
 
-                if(result) return Ok("Empresa cadastrada com sucesso!");
+                if(empresa == null) return NoContent();
 
-                return BadRequest("Erro ao tentar cadastrar empresa!");
+                return Ok(empresa);
             }
             catch (Exception ex)
             {
@@ -92,7 +92,7 @@ namespace GuardianLog.API.Controllers
             }
             catch (Exception ex)
             {
-                throw new Exception(ex.Message);
+                return StatusCode(StatusCodes.Status500InternalServerError, $"Erro ao tentar atualizar empresa. Erro: {ex.Message}");
             }
         }
     }

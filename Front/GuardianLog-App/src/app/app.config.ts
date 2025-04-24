@@ -4,7 +4,7 @@ import { provideRouter } from '@angular/router';
 import { routes } from './app.routes';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { NgxSpinnerModule } from 'ngx-spinner';
-import { ToastrModule } from 'ngx-toastr';
+import { provideToastr, ToastrModule } from 'ngx-toastr';
 import { HttpClient, provideHttpClient } from '@angular/common/http';
 
 export const appConfig: ApplicationConfig = {
@@ -12,6 +12,7 @@ export const appConfig: ApplicationConfig = {
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
     provideAnimations(),
+    provideToastr(),
     provideHttpClient(),
     importProvidersFrom(
       NgxSpinnerModule.forRoot(),
@@ -19,6 +20,7 @@ export const appConfig: ApplicationConfig = {
         timeOut: 3000,
         positionClass: 'toast-bottom-right',
         preventDuplicates: true,
+        progressBar: true
       })
     )
   ]

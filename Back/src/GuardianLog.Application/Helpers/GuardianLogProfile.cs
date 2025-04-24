@@ -12,9 +12,11 @@ public class GuardianLogProfile : Profile
    public GuardianLogProfile()
    {
       CreateMap<Cidade, CidadeDto>().ReverseMap();
-      CreateMap<Cidade, EnderecoCompletoDto>()
+      CreateMap<Cidade, EnderecoResponseDto>()
          .ForMember(dest => dest.Cidade, opt => opt.MapFrom(src => src.NomeCidade))
-         .ForMember(dest => dest.Estado, opt => opt.MapFrom(src => src.Estado.NomeEstado));
+         .ForMember(dest => dest.Estado, opt => opt.MapFrom(src => src.Estado.NomeEstado))
+         .ForMember(dest => dest.IdCidade, opt => opt.MapFrom(src => src.Id))
+         .ForMember(dest => dest.IdEstado, opt => opt.MapFrom(src => src.Estado.Id));
       CreateMap<Cor, CorDto>().ReverseMap();
       CreateMap<Contato, ContatoDto>().ReverseMap();
       CreateMap<Empresa, EmpresaDto>().ReverseMap();
@@ -24,17 +26,21 @@ public class GuardianLogProfile : Profile
          .ForMember(dest => dest.TipoEmpresa, opt => opt.MapFrom(src => (int)src.TipoEmpresa));
       CreateMap<EmpresaRequestDto, Empresa>()
          .ForMember(dest => dest.TipoEmpresa, opt => opt.MapFrom(src => (TipoEmpresa)src.TipoEmpresa));
-      CreateMap<Endereco, EnderecoDto>()
+      CreateMap<Endereco, EnderecoRequestDto>()
          .ForSourceMember(src => src.Empresa, opt => opt.DoNotValidate())
          .ForSourceMember(src => src.PessoaFisica, opt => opt.DoNotValidate());
-      CreateMap<Endereco, EnderecoCompletoDto>()
+      CreateMap<EnderecoRequestDto, Endereco>();
+      CreateMap<Endereco, EnderecoResponseDto>()
+            .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
             .ForMember(dest => dest.Cep, opt => opt.MapFrom(src => src.Cep))
             .ForMember(dest => dest.Logradouro, opt => opt.MapFrom(src => src.Logradouro))
             .ForMember(dest => dest.Bairro, opt => opt.MapFrom(src => src.Bairro))
             .ForMember(dest => dest.Numero, opt => opt.MapFrom(src => src.Numero))
             .ForMember(dest => dest.Complemento, opt => opt.MapFrom(src => src.Complemento))
             .ForMember(dest => dest.Cidade, opt => opt.MapFrom(src => src.Cidade!.NomeCidade))
-            .ForMember(dest => dest.Estado, opt => opt.MapFrom(src => src.Cidade!.Estado.NomeEstado)); 
+            .ForMember(dest => dest.Estado, opt => opt.MapFrom(src => src.Cidade!.Estado.NomeEstado))
+            .ForMember(dest => dest.IdCidade, opt => opt.MapFrom(src => src.Cidade!.Id))
+            .ForMember(dest => dest.IdEstado, opt => opt.MapFrom(src => src.Cidade!.Estado.Id));
       CreateMap<Estado, EstadoDto>().ReverseMap();
       CreateMap<Motorista, MotoristaDto>()
          .ForMember(dest => dest.CategoriaCNH, opt => opt.MapFrom(src => (int)src.CategoriaCNH))

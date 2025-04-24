@@ -9,6 +9,6 @@ public class EmpresaDetalheDto
     public required string NomeFantasia { get; set; }
     public bool EhCliente { get; set; }
     public int TipoEmpresa { get; set; }
-    public EnderecoCompletoDto ? Endereco { get; set; }
+    public EnderecoResponseDto ? Endereco { get; set; }
     public ContatoDto ? Contato { get; set; }
 }

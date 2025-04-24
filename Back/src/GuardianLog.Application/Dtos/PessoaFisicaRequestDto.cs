@@ -11,7 +11,7 @@ public class PessoaFisicaRequestDto
    public int IdOrgaoEmissor { get; set; }
    public DateTime DataEmissaoRG { get; set; }
    public int IdEstadoRG { get; set; }
-   public required EnderecoDto Endereco { get; set; }
+   public required EnderecoRequestDto Endereco { get; set; }
    public int IdEndereco { get; set; }
    public required ContatoDto Contato { get; set; }
    public int IdContato { get; set; }

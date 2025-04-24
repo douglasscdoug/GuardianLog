@@ -7,6 +7,6 @@ public interface IEmpresaService
     Task<EmpresaDto[]?> GetAllEmpresasAsync();
     Task<EmpresaDto[]?> GetEmpresasByNomeAsync(string nomeEmpresa);
     Task<EmpresaDto?> GetEmpresaByIdAsync(int empresaId);
-    Task<bool> AddEmpresaAsync(EmpresaRequestDto model);
+    Task<EmpresaDto?> AddEmpresaAsync(EmpresaRequestDto model);
     Task<EmpresaDto?> UpdateEmpresaAsync(EmpresaRequestDto model);
 }

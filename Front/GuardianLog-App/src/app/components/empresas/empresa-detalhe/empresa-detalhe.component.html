@@ -39,15 +39,15 @@
             <div class="form-group col-md-3">
               <label>Cliente:</label>
               <select class="form-control" formControlName="ehCliente" [(ngModel)]="empresa.ehCliente">
-                <option value="true">Sim</option>
-                <option value="false">Não</option>
+                <option [ngValue]="true">Sim</option>
+                <option [ngValue]="false">Não</option>
               </select>
             </div>
             <div class="form-group col-md-3">
               <label>Tipo Empresa:</label>
               <select class="form-control" formControlName="tipoEmpresa" [(ngModel)]="empresa.tipoEmpresa">
-                <option value="1">Embarcador</option>
-                <option value="2">Transportador</option>
+                <option [ngValue]="1">Embarcador</option>
+                <option [ngValue]="2">Transportador</option>
               </select>
             </div>
           </div>
@@ -56,18 +56,17 @@
           <div class="row" formGroupName="endereco">
             <div class="form-group col-md-4 col-12">
               <label>Estado:</label>
-              <select class="form-control" formControlName="estado">
-                <option *ngFor="let estado of estados" value="{{estado.nomeEstado}}">{{estado.nomeEstado}}</option>
+              <select class="form-control" formControlName="idEstado">
+                <option value="">Selecione um estado</option>
+                <option *ngFor="let estado of estados" [ngValue]="estado.id">{{estado.nomeEstado}}</option>
               </select>
             </div>
             <div class="form-group col-md-4 col-12">
               <label>Cidade:</label>
-              <input
-                type="text"
-                class="form-control"
-                formControlName="cidade"
-                placeholder="Cidade"
-              />
+              <select class="form-control" formControlName="idCidade">
+                <option value="">Selecione uma cidade</option>
+                <option *ngFor="let cidade of cidades" [ngValue]="cidade.id">{{cidade.nomeCidade}}</option>
+              </select>
             </div>
             <div class="form-group col-md-4 col-12" >
               <label>Bairro:</label>
@@ -145,7 +144,7 @@
             <button class="btn btn-outline-secondary me-auto border">
               Cancelar Alteração
             </button>
-            <button class="btn btn-success">Salvar</button>
+            <button class="btn btn-success" (click)="salvarEmpresa()">Salvar</button>
           </div>
         </div>
       </form>

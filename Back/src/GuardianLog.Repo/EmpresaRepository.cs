@@ -27,7 +27,15 @@ public class EmpresaRepository(Context _context) : IEmpresaRepository
         return await query.ToArrayAsync();
     }
 
-    public IQueryable<Empresa> GetEmpresaByIdQuery(int empresaId)
+    public async Task<Empresa?> GetEmpresaByIdAsync(int empresaId)
+    {
+        IQueryable<Empresa> query = Context.Empresas;
+        query = query.AsNoTracking().Where(e => e.Id == empresaId);
+
+        return await query.FirstOrDefaultAsync();
+    }
+
+    public IQueryable<Empresa> QueryEmpresaById(int empresaId)
     {
         return Context.Empresas
             .AsNoTracking()

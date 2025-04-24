@@ -54,7 +54,7 @@ public class EmpresaService(
     {
         try
         {
-            var query = EmpresaRepository.GetEmpresaByIdQuery(empresaId);
+            var query = EmpresaRepository.QueryEmpresaById(empresaId);
             var empresa = await query.ProjectTo<EmpresaDto>(Mapper.ConfigurationProvider).FirstOrDefaultAsync();
 
             if(empresa == null) return null;
@@ -67,7 +67,7 @@ public class EmpresaService(
         }
     }
 
-    public async Task<bool> AddEmpresaAsync(EmpresaRequestDto model)
+    public async Task<EmpresaDto?> AddEmpresaAsync(EmpresaRequestDto model)
     {
         try
         {
@@ -91,7 +91,13 @@ public class EmpresaService(
         
             GeralRepository.Add(empresa);
 
-            return await GeralRepository.SaveChangesAsync();
+            if(await GeralRepository.SaveChangesAsync())
+            {
+                var empresaResponse = await EmpresaRepository.GetEmpresaByIdAsync(empresa.Id);
+                return Mapper.Map<EmpresaDto>(empresaResponse);
+            }
+
+            return null;
         }
         catch (Exception ex)
         { 
@@ -99,27 +105,27 @@ public class EmpresaService(
         }
     }
 
-    public Task<EmpresaDto?> UpdateEmpresaAsync(EmpresaRequestDto model)
+    public async Task<EmpresaDto?> UpdateEmpresaAsync(EmpresaRequestDto model)
     {
-        throw new NotImplementedException();
-        // try
-        // {
-        //     var empresa = await EmpresaRepository.GetEmpresaByIdAsync(model.Id);
+        try
+        {
+            var empresa = await EmpresaRepository.GetEmpresaByIdAsync(model.Id);
 
-        //     if(empresa == null) return null;
+            if(empresa == null) return null;
 
-        //     empresa = Mapper.Map<Empresa>(model);
-        //     GeralRepository.Update(empresa);
+            empresa = Mapper.Map<Empresa>(model);
+            GeralRepository.Update(empresa);
 
-        //     if(await GeralRepository.SaveChangesAsync())
-        //     {
-        //         return Mapper.Map<EmpresaDto>(await EmpresaRepository.GetEmpresaByIdAsync(model.Id));
-        //     }
-        //     return null;
-        // }
-        // catch (Exception ex)
-        // { 
-        //     throw new Exception(ex.Message);
-        // }
+            if(await GeralRepository.SaveChangesAsync())
+            {
+                var empresaResponse = await EmpresaRepository.GetEmpresaByIdAsync(model.Id);
+                return Mapper.Map<EmpresaDto>(empresaResponse);
+            }
+            return null;
+        }
+        catch (Exception ex)
+        { 
+            throw new Exception(ex.Message);
+        }
     }
 }

@@ -1,13 +1,16 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { EmpresaService } from '../../../services/empresa.service';
 import { Empresa } from '../../../models/Empresa';
 import { ToastrService } from 'ngx-toastr';
 import { Estado } from '../../../models/Estado';
 import { EstadoService } from '../../../services/estado.service';
+import { Cidade } from '../../../models/Cidade';
+import { CidadeService } from '../../../services/cidade.service';
+import { filter } from 'rxjs';
 
 @Component({
   selector: 'app-empresa-detalhe',
@@ -21,6 +24,7 @@ export class EmpresaDetalheComponent {
   public empresaId!: number;
   public empresa = {} as Empresa;
   public estados: Estado[] = [];
+  public cidades: Cidade[] = [];
 
   constructor(
     private fb: FormBuilder,
@@ -28,7 +32,9 @@ export class EmpresaDetalheComponent {
     private spinner: NgxSpinnerService,
     private empresaService: EmpresaService,
     private toastr: ToastrService,
-    private estadoService: EstadoService
+    private estadoService: EstadoService,
+    private cidadeService: CidadeService,
+    private router: Router
   ) {
     this.empresaForm = this.fb.group({
       cnpj: [''],
@@ -43,7 +49,9 @@ export class EmpresaDetalheComponent {
         complemento: [''],
         bairro: [''],
         cidade: [''],
-        estado: ['']
+        idCidade: [''],
+        estado: [''],
+        idEstado: ['']
       }),
       contato: this.fb.group({
         telefone: [''],
@@ -53,6 +61,7 @@ export class EmpresaDetalheComponent {
 
     this.carregarEmpresa();
     this.carregarEstados();
+    this.carregarCidades();
   }
 
   public get modoEditar(): boolean {
@@ -80,12 +89,58 @@ export class EmpresaDetalheComponent {
     }
   }
 
-  public carregarEstados(): void{
+  public carregarEstados(): void {
     this.estadoService.getEstadosByPaisId(1).subscribe({
-      next: (estadoResponse: Estado[]) => {
-        this.estados = estadoResponse;
+      next: (estadosResponse: Estado[]) => {
+        this.estados = estadosResponse;
       },
-      error: () => {}
+      error: (error: any) => {console.error('Erro ao carregar estados:', error)}
     }).add(() => this.spinner.hide());
+  }
+
+  public carregarCidades(): void {
+    this.empresaForm.get('endereco.idEstado')?.valueChanges.pipe(filter((estadoId: number) => !!estadoId)).subscribe((estadoId: number) => {
+        this.cidadeService.getCidadesByEstadoId(estadoId).subscribe({
+          next: (cidadesResponse: Cidade[]) => {
+            this.cidades = cidadesResponse;
+            this.empresaForm.get('endereco.cidade')?.setValue('');
+          },
+          error: (error: any) => console.error('Erro ao carregar cidades!', error)
+        });
+    });
+  }
+
+  public salvarEmpresa(): void {
+    if(this.empresaForm.valid) {
+      this.spinner.show();
+
+      const {cidade, estado, idEstado, ...enderecoLimpo} = this.empresaForm.value.endereco;
+      
+      const empresaPayload: Empresa = (this.httpMetodo === 'post')
+        ? {
+            ... this.empresaForm.value,
+            endereco: enderecoLimpo
+          }
+        : {
+            id: this.empresaId, 
+            ... this.empresaForm.value,
+            endereco: {id: this.empresa.endereco.id, ...enderecoLimpo},
+            contato: {id: this.empresa.contato.id, ...this.empresaForm.value.contato}
+          };
+
+      if(this.httpMetodo == 'post' || this.httpMetodo == 'put'){
+        this.empresaService[this.httpMetodo](empresaPayload).subscribe({
+          next: (empresaResponse: Empresa) => {
+            this.toastr.success('Empresa salva com sucesso!', 'Sucesso!');
+            this.router.navigate([`empresas/detalhe/${empresaResponse.id}`]);
+          },
+          error: (error: any) => {
+            console.error('Erro ao salvar empresa!', error);
+            this.spinner.hide();
+            this.toastr.error('Erro ao salvar empresa!', 'Erro');
+          }
+        }).add(() => this.spinner.hide());
+      }
+    }
   }
 }
