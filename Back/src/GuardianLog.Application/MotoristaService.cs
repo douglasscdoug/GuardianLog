@@ -1,9 +1,11 @@
 using System;
 using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using GuardianLog.Application.Contratos;
 using GuardianLog.Application.Dtos;
 using GuardianLog.Domain;
 using GuardianLog.Repo.Contratos;
+using Microsoft.EntityFrameworkCore;
 
 namespace GuardianLog.Application;
 
@@ -17,7 +19,7 @@ public class MotoristaService(
     public IGeralRepository GeralRepository { get; } = _geralRepository;
     public IMapper Mapper { get; } = _mapper;
 
-    public async Task<MotoristaDto[]?> GetAllMotoristasAsync()
+    public async Task<MotoristaResponseDto[]?> GetAllMotoristasAsync()
     {
         try
         {
@@ -25,7 +27,7 @@ public class MotoristaService(
 
             if(motoristas == null) return null;
 
-            return Mapper.Map<MotoristaDto[]>(motoristas);
+            return Mapper.Map<MotoristaResponseDto[]>(motoristas);
         }
         catch (Exception ex)
         {
@@ -33,7 +35,7 @@ public class MotoristaService(
         }
     }
 
-    public async Task<MotoristaDto[]?> GetMotoristasByNomeAsync(string nomeMotorista)
+    public async Task<MotoristaResponseDto[]?> GetMotoristasByNomeAsync(string nomeMotorista)
     {
         try
         {
@@ -41,7 +43,7 @@ public class MotoristaService(
 
             if(motoristas == null) return null;
 
-            return Mapper.Map<MotoristaDto[]>(motoristas);
+            return Mapper.Map<MotoristaResponseDto[]>(motoristas);
         }
         catch (Exception ex)
         {
@@ -49,15 +51,16 @@ public class MotoristaService(
         }
     }
 
-    public async Task<MotoristaDto?> GetMotoristaByIdAsync(int motoristaId)
+    public async Task<MotoristaResponseDto?> GetMotoristaByIdAsync(int motoristaId)
     {
         try
         {
-            var motorista = await MotoristaRepository.GetMotoristaByIdAsync(motoristaId);
+            var query = MotoristaRepository.QueryMotoristaById(motoristaId);
+            var motorista = await query.ProjectTo<MotoristaResponseDto>(Mapper.ConfigurationProvider).FirstOrDefaultAsync();
 
             if(motorista == null) return null;
 
-            return Mapper.Map<MotoristaDto>(motorista);
+            return Mapper.Map<MotoristaResponseDto>(motorista);
         }
         catch (Exception ex)
         {
@@ -65,7 +68,7 @@ public class MotoristaService(
         }
     }
 
-    public async Task<bool> AddMotoristaAsync(MotoristaDto model)
+    public async Task<bool> AddMotoristaAsync(MotoristaRequestDto model)
     {
         try
         {
@@ -92,7 +95,7 @@ public class MotoristaService(
         }
     }
 
-    public async Task<MotoristaDto?> UpdateMotoristaAsync(MotoristaDto model)
+    public async Task<MotoristaRequestDto?> UpdateMotoristaAsync(MotoristaRequestDto model)
     {
         try
         {
@@ -106,7 +109,7 @@ public class MotoristaService(
             if(await GeralRepository.SaveChangesAsync())
             {
                 var motoristaRetorno = await MotoristaRepository.GetMotoristaByIdAsync(motorista.Id);
-                return Mapper.Map<MotoristaDto>(motoristaRetorno);
+                return Mapper.Map<MotoristaRequestDto>(motoristaRetorno);
             }
 
             return null;

@@ -37,6 +37,15 @@ public class MotoristaRepository(Context _context) : IMotoristaRepository
         return await query.FirstOrDefaultAsync();
     }
 
+    public IQueryable<Motorista> QueryMotoristaById(int motoristaId)
+    {
+        return Context.Motoristas
+            .AsNoTracking()
+            .Include(m => m.Endereco!).ThenInclude(e => e.Cidade!).ThenInclude(c => c.Estado)
+            .Include(m => m.Contato)
+            .Where(m => m.Id == motoristaId);
+    }
+
     public async Task<Endereco> SalvarEnderecoAsync(Endereco endereco)
     {
         Context.Add(endereco);

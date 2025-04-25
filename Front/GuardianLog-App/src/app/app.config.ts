@@ -8,6 +8,10 @@ import { provideToastr, ToastrModule } from 'ngx-toastr';
 import { provideHttpClient } from '@angular/common/http';
 import { registerLocaleData } from '@angular/common';
 import ptBr from '@angular/common/locales/pt';
+import { defineLocale, ptBrLocale } from 'ngx-bootstrap/chronos';
+import { BsLocaleService } from 'ngx-bootstrap/datepicker';
+
+defineLocale('pt-br', ptBrLocale); 
 
 registerLocaleData(ptBr);
 
@@ -19,6 +23,14 @@ export const appConfig: ApplicationConfig = {
     provideToastr(),
     provideHttpClient(),
     { provide: LOCALE_ID, useValue: 'pt-BR' },
+    {
+      provide: 'set-locale',
+      useFactory: (localeService: BsLocaleService) => {
+        return () => localeService.use('pt-br');
+      },
+      deps: [BsLocaleService],
+      multi: true
+    },
     importProvidersFrom(
       NgxSpinnerModule.forRoot(),
       ToastrModule.forRoot({

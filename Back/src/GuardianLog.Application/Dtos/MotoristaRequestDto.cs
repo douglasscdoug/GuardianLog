@@ -1,6 +1,6 @@
 namespace GuardianLog.Application.Dtos;
 
-public class MotoristaDto : PessoaFisicaRequestDto
+public class MotoristaRequestDto : PessoaFisicaRequestDto
 {
    public required string NumeroCNH { get; set; }
    public required string NumeroRegistroCNH { get; set; }

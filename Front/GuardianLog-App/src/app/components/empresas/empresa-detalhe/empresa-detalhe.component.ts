@@ -64,10 +64,6 @@ export class EmpresaDetalheComponent {
     this.carregarCidades();
   }
 
-  public get modoEditar(): boolean {
-    return this.httpMetodo === 'put';
-  }
-
   public carregarEmpresa(): void{
     this.empresaId = +this.activatedRoute.snapshot.paramMap.get('id')!;
 

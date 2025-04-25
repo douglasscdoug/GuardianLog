@@ -15,4 +15,8 @@ export class MotoristaService {
   public getMotoristas(): Observable<Motorista[]> {
     return this.http.get<Motorista[]>(this.baseURL).pipe(take(1));
   }
+
+  public getMotoristaById(id: number): Observable<Motorista> {
+    return this.http.get<Motorista>(`${this.baseURL}/motoristaId/${id}`).pipe(take(1));
+  }
 }

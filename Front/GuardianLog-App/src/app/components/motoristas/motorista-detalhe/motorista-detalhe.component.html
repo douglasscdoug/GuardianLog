@@ -1,1 +1,256 @@
-<p>motorista-detalhe works!</p>
+<div class="row">
+  <div>
+    <div class="card rounded shadow-sm">
+      <form [formGroup]="motoristaForm">
+        <div class="p-3">
+          <h4>Cadastro</h4>
+          <hr />
+          <div class="row mb-2">
+            <div class="form-group col-md-3">
+              <label>Nome:</label>
+              <input
+                type="text"
+                class="form-control"
+                formControlName="nome"
+                placeholder="Insira o Nome"
+              />
+            </div>
+            <div class="form-group col-md-3 col-12">
+              <label>Sobrenome</label>
+              <input
+                type="text"
+                class="form-control"
+                formControlName="sobrenome"
+                placeholder="Insira o sobrenome"
+              />
+            </div>
+            <div class="form-group col-md-2 col-12">
+              <label>Data de Nascimento</label>
+              <input
+                type="datetime"
+                class="form-control"
+                formControlName="dataNascimento"
+                placeholder="Data de nascimentol"
+                bsDatepicker
+                [bsConfig]="bsConfig"
+              />
+            </div>
+            <div class="form-group col-md-2 col-12">
+              <label>CPF:</label>
+              <input
+                type="text"
+                class="form-control"
+                formControlName="numeroCPF"
+                placeholder="Insira o numero do CPF"
+              />
+            </div>
+            <div class="form-group col-md-2 col-12">
+              <label>Vinculo:</label>
+              <select class="form-control" formControlName="tipoVinculo">
+                <option [ngValue]="1">Agregado</option>
+                <option [ngValue]="2">Frota</option>
+                <option [ngValue]="3">Terceiro</option>
+              </select>
+            </div>
+          </div>
+          <div class="row mb-2">
+            <div class="form-group col-md-3 col-12">
+              <label>RG:</label>
+              <input
+                type="text"
+                class="form-control"
+                formControlName="numeroRG"
+                placeholder="Insira o numero de RG"
+              />
+            </div>
+            <div class="form-group col-md-4 col-12">
+              <label>Orgão emissor do RG:</label>
+              <select class="form-control" formControlName="idOrgaoEmissor">
+                <option value="">Selecione o Orgão Emissor</option>
+                <option *ngFor="let orgao of orgaos" [ngValue]="orgao.id">
+                  {{ orgao.sigla + " - " + orgao.nomeInstituicao }}
+                </option>
+              </select>
+            </div>
+            <div class="form-group col-md-2 col-12">
+              <label>Data de emissão do RG</label>
+              <input
+                type="dateTime"
+                class="form-control"
+                formControlName="dataEmissaoRG"
+                placeholder="Insira o data de emissão de RG"
+                bsDatepicker
+                [bsConfig]="bsConfig"
+              />
+            </div>
+            <div class="form-group col-md-3 col-12">
+              <label>UF</label>
+              <select class="form-control" formControlName="idEstadoRG">
+                <option value="">Selecione o UF do RG</option>
+                <option *ngFor="let estado of estados" [ngValue]="estado.id">
+                  {{ estado.uf + " - " + estado.nomeEstado }}
+                </option>
+              </select>
+            </div>
+          </div>
+          <div class="row mb-2">
+            <div class="form-group col-md-3 col-12">
+              <label>Numero da CNH</label>
+              <input
+                type="text"
+                class="form-control"
+                formControlName="numeroCNH"
+                placeholder="Numero da CNH"
+              />
+            </div>
+            <div class="form-group col-md-3 col-12">
+              <label>Numero de registro da CNH</label>
+              <input
+                type="text"
+                class="form-control"
+                formControlName="numeroRegistroCNH"
+                placeholder="Numero de registro da CNH"
+              />
+            </div>
+            <div class="form-group col-md-2 col-12">
+              <label>Data de emissão da CNH</label>
+              <input
+                type="datetime"
+                class="form-control"
+                formControlName="dataEmissaoCNH"
+                placeholder="Data de emissão CNH"
+                bsDatepicker
+                [bsConfig]="bsConfig"
+              />
+            </div>
+            <div class="form-group col-md-2 col-12">
+              <label>Vencimento da CNH</label>
+              <input
+                type="datetime"
+                class="form-control"
+                formControlName="dataVencimentoCNH"
+                placeholder="Data de vencimento CNH"
+                bsDatepicker
+                [bsConfig]="bsConfig"
+              />
+            </div>
+            <div class="form-group col-md-2 col-12">
+              <label>Categoria CNH:</label>
+              <select
+                class="form-control"
+                formControlName="categoriaCNH"
+              >
+                <option [ngValue]="1">A</option>
+                <option [ngValue]="2">B</option>
+                <option [ngValue]="3">C</option>
+                <option [ngValue]="4">D</option>
+                <option [ngValue]="5">E</option>
+              </select>
+            </div>
+          </div>
+          <h4 class="mt-2">Endereço</h4>
+          <hr />
+          <div class="row" formGroupName="endereco">
+            <div class="form-group col-md-4 col-12">
+              <label>Estado:</label>
+              <select class="form-control" formControlName="idEstado">
+                <option value="">Selecione um estado</option>
+                <option *ngFor="let estado of estados" [ngValue]="estado.id">
+                  {{ estado.nomeEstado }}
+                </option>
+              </select>
+            </div>
+            <div class="form-group col-md-4 col-12">
+              <label>Cidade:</label>
+              <select class="form-control" formControlName="idCidade">
+                <option value="">Selecione uma cidade</option>
+                <option *ngFor="let cidade of cidades" [ngValue]="cidade.id">
+                  {{ cidade.nomeCidade }}
+                </option>
+              </select>
+            </div>
+            <div class="form-group col-md-4 col-12">
+              <label>Bairro:</label>
+              <input
+                type="text"
+                class="form-control"
+                formControlName="bairro"
+                placeholder="Bairro"
+              />
+            </div>
+          </div>
+          <div class="row" formGroupName="endereco">
+            <div class="form-group col-md-2 col-12">
+              <label>CEP:</label>
+              <input
+                type="text"
+                class="form-control"
+                formControlName="cep"
+                placeholder="Insira o CEP"
+              />
+            </div>
+            <div class="form-group col-md-4 col-12">
+              <label>Logradouro:</label>
+              <input
+                type="text"
+                class="form-control"
+                formControlName="logradouro"
+                placeholder="Rua, AV, Travessa"
+              />
+            </div>
+            <div class="form-group col-md-2 col-12">
+              <label>Número:</label>
+              <input
+                type="number"
+                class="form-control"
+                formControlName="numero"
+                placeholder="Insira o numero do endereço"
+              />
+            </div>
+            <div class="form-group col-md-4 col-12">
+              <label>Complemento:</label>
+              <input
+                type="text"
+                class="form-control"
+                formControlName="complemento"
+                placeholder="complemento"
+              />
+            </div>
+          </div>
+          <h4 class="mt-2">Contato</h4>
+          <hr />
+          <div class="row" formGroupName="contato">
+            <div class="form-group col-md-6 col-12">
+              <label>Telefone:</label>
+              <input
+                type="text"
+                class="form-control"
+                formControlName="telefone"
+                placeholder="Insira o nº de telefone"
+              />
+            </div>
+            <div class="form-group col-md-6 col-12">
+              <label>E-mail:</label>
+              <input
+                type="text"
+                class="form-control"
+                formControlName="email"
+                placeholder="Insira o E-mail"
+              />
+            </div>
+          </div>
+        </div>
+        <div class="card-footer">
+          <div class="d-flex">
+            <button class="btn btn-outline-secondary me-auto border">
+              Cancelar Alteração
+            </button>
+            <button class="btn btn-success" (click)="salvarMotorista()">
+              Salvar
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

@@ -63,7 +63,7 @@ namespace GuardianLog.API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> PostMotorista(MotoristaDto model)
+        public async Task<IActionResult> PostMotorista(MotoristaRequestDto model)
         {
             try
             {
@@ -80,7 +80,7 @@ namespace GuardianLog.API.Controllers
         }
 
         [HttpPut]
-        public async Task<IActionResult> PutMotorista(MotoristaDto model)
+        public async Task<IActionResult> PutMotorista(MotoristaRequestDto model)
         {
             try
             {

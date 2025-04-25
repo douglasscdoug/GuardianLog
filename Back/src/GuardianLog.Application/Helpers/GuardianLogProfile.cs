@@ -42,16 +42,23 @@ public class GuardianLogProfile : Profile
             .ForMember(dest => dest.IdCidade, opt => opt.MapFrom(src => src.Cidade!.Id))
             .ForMember(dest => dest.IdEstado, opt => opt.MapFrom(src => src.Cidade!.Estado.Id));
       CreateMap<Estado, EstadoDto>().ReverseMap();
-      CreateMap<Motorista, MotoristaDto>()
+      CreateMap<Motorista, MotoristaResponseDto>()
          .ForMember(dest => dest.CategoriaCNH, opt => opt.MapFrom(src => (int)src.CategoriaCNH))
          .ForMember(dest => dest.TipoVinculo, opt => opt.MapFrom(src => (int)src.TipoVinculo));
-      CreateMap<MotoristaDto, Motorista>()
+      CreateMap<MotoristaResponseDto, Motorista>()
+         .ForMember(dest => dest.CategoriaCNH, opt => opt.MapFrom(src => (CategoriaCNH)src.CategoriaCNH))
+         .ForMember(dest => dest.TipoVinculo, opt => opt.MapFrom(src => (TipoVinculo)src.TipoVinculo));
+      CreateMap<Motorista, MotoristaRequestDto>()
+         .ForMember(dest => dest.CategoriaCNH, opt => opt.MapFrom(src => (int)src.CategoriaCNH))
+         .ForMember(dest => dest.TipoVinculo, opt => opt.MapFrom(src => (int)src.TipoVinculo));
+      CreateMap<MotoristaRequestDto, Motorista>()
          .ForMember(dest => dest.CategoriaCNH, opt => opt.MapFrom(src => (CategoriaCNH)src.CategoriaCNH))
          .ForMember(dest => dest.TipoVinculo, opt => opt.MapFrom(src => (TipoVinculo)src.TipoVinculo));
       CreateMap<MarcaVeiculo, MarcaVeiculoDto>().ReverseMap();
       CreateMap<ModeloVeiculo, ModeloVeiculoDto>().ReverseMap();
       CreateMap<Pais, PaisDto>().ReverseMap();
       CreateMap<PessoaFisica, PessoaFisicaRequestDto>().ReverseMap();
+      CreateMap<PessoaFisica, PessoaFisicaResponseDto>().ReverseMap();
       CreateMap<OrgaoEmissor, OrgaoEmissorDto>().ReverseMap();
       CreateMap<TecnologiaRastreamento, TecnologiaRastreamentoDto>().ReverseMap();
       CreateMap<TipoCarreta, TipoCarretaDto>().ReverseMap();

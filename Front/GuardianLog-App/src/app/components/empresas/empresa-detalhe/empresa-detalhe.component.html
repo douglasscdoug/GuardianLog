@@ -3,6 +3,8 @@
     <div class="card rounded shadow-sm">
       <form [formGroup]="empresaForm">
         <div class="p-3">
+          <h4>Cadastro</h4>
+          <hr>
           <div class="row">
             <div class="form-group col-md-6">
               <label>Nome Fantasia:</label>
@@ -10,8 +12,7 @@
                 type="text"
                 class="form-control"
                 formControlName="nomeFantasia"
-                placeholder="Insira o Nome fantasia"
-                [(ngModel)]="empresa.nomeFantasia"
+                placeholder="Insira o Nome fantasia"                
               />
             </div>
             <div class="form-group col-md-6 col-12">
@@ -20,8 +21,7 @@
                 type="text"
                 class="form-control"
                 formControlName="razaoSocial"
-                placeholder="Insira a razão social"
-                [(ngModel)]="empresa.razaoSocial"
+                placeholder="Insira a razão social"                
               />
             </div>
           </div>
@@ -32,20 +32,19 @@
                 type="text"
                 class="form-control"
                 formControlName="cnpj"
-                placeholder="Insira o CNPJ"
-                [(ngModel)]="empresa.cnpj"
+                placeholder="Insira o CNPJ"                
               />
             </div>
             <div class="form-group col-md-3">
               <label>Cliente:</label>
-              <select class="form-control" formControlName="ehCliente" [(ngModel)]="empresa.ehCliente">
+            <select class="form-control" formControlName="ehCliente" >
                 <option [ngValue]="true">Sim</option>
                 <option [ngValue]="false">Não</option>
               </select>
             </div>
             <div class="form-group col-md-3">
               <label>Tipo Empresa:</label>
-              <select class="form-control" formControlName="tipoEmpresa" [(ngModel)]="empresa.tipoEmpresa">
+            <select class="form-control" formControlName="tipoEmpresa" >
                 <option [ngValue]="1">Embarcador</option>
                 <option [ngValue]="2">Transportador</option>
               </select>
