@@ -30,8 +30,11 @@
     <tbody>
       <tr *ngFor="let motorista of motoristasFiltrados">
         <td>
-          <button title="Editar" class="btn btn-sm btn-primary" type="button" tooltip="Editar" (click)="detalheMotorista(motorista.id)">
+          <button title="Editar" style="width: 30px;" class="btn btn-sm btn-primary me-2" type="button" tooltip="Editar" (click)="detalheMotorista(motorista.id)">
             <i class="fa-solid fa-pen-to-square"></i>
+          </button>
+          <button title="Excluir" style="width: 30px;" class="btn btn-sm btn-danger" type="button" tooltip="Editar" (click)="openModal(template, motorista.id)">
+            <i class="fa-solid fa-trash"></i>
           </button>
         </td>
         <td>{{ motorista.id }}</td>
@@ -48,3 +51,10 @@
       <tr></tr>
     </tfoot>
   </table>
+  <ng-template #template>
+    <div class="modal-body text-center">
+      <p>Deletar Motorista Id: {{motoristaId}}</p>
+      <button type="button" class="btn btn-primary" (click)="confirm()" >Sim</button>
+      <button type="button" class="btn btn-default" (click)="decline()" >Não</button>
+    </div>
+  </ng-template>

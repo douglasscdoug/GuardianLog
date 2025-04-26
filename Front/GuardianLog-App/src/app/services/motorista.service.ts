@@ -27,4 +27,8 @@ export class MotoristaService {
   public put(motorista: Motorista): Observable<Motorista> {
     return this.http.put<Motorista>(this.baseURL, motorista).pipe(take(1));
   }
+
+  public deleteMotorista(motoristaId: number): Observable<any> {
+    return this.http.delete(`${this.baseURL}/${motoristaId}`).pipe(take(1));
+  }
 }

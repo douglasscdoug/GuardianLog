@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, TemplateRef } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Motorista } from '../../../models/Motorista';
 import { MotoristaService } from '../../../services/motorista.service';
@@ -7,6 +7,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import { Router, RouterLink } from '@angular/router';
 import { DataPtBrPipe } from "../../../helpers/pipes/data-pt-br.pipe";
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 
 @Component({
   selector: 'app-motorista-lista',
@@ -18,6 +19,8 @@ export class MotoristaListaComponent {
   private filtro = '';
   public motoristas: Motorista[] = [];
   public motoristasFiltrados: Motorista[] = [];
+  public modalRef?: BsModalRef;
+  public motoristaId: number = 0;
 
   public get filtroLista() {
     return this.filtro;
@@ -32,7 +35,8 @@ export class MotoristaListaComponent {
     private motoristaService: MotoristaService,
     private spinner: NgxSpinnerService,
     private toastr: ToastrService,
-    private router: Router
+    private router: Router,
+    private modalService: BsModalService
   ) {
     this.carregarMotoristas();
   }
@@ -79,5 +83,32 @@ export class MotoristaListaComponent {
         motorista.numeroRG.indexOf(filtrarPor) !== -1 ||
         motorista.numeroCNH.indexOf(filtrarPor) !== -1
     );
+  }
+
+  public openModal(template: TemplateRef<void>, motoristaId: number) {
+    this.modalRef = this.modalService.show(template, { class: 'modal-sm' });
+    this.motoristaId = motoristaId;
+  }
+
+  public confirm(): void {
+    this.modalRef?.hide();
+    this.spinner.show();
+
+    this.motoristaService.deleteMotorista(this.motoristaId).subscribe({
+      next: (result: any) => {
+        if(result.message === 'Deletado') {
+          this.toastr.success(`Motorista id: ${this.motoristaId} deletado com sucesso`, 'sucesso');
+          this.carregarMotoristas();
+        }
+      },
+      error: (error: any) => {
+        this.toastr.error(`Erro ao tentar deletar motorista Id: ${this.motoristaId}`, 'Erro');
+        console.error(error);
+      }
+    }).add(() => this.spinner.hide());
+  }
+
+  public decline(): void {
+    this.modalRef?.hide();
   }
 }

@@ -10,6 +10,7 @@ import { registerLocaleData } from '@angular/common';
 import ptBr from '@angular/common/locales/pt';
 import { defineLocale, ptBrLocale } from 'ngx-bootstrap/chronos';
 import { BsLocaleService } from 'ngx-bootstrap/datepicker';
+import { ModalModule } from 'ngx-bootstrap/modal';
 
 defineLocale('pt-br', ptBrLocale); 
 
@@ -38,7 +39,8 @@ export const appConfig: ApplicationConfig = {
         positionClass: 'toast-bottom-right',
         preventDuplicates: true,
         progressBar: true
-      })
+      }),
+      ModalModule.forRoot()
     )
   ]
 };

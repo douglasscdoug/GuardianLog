@@ -103,7 +103,7 @@ namespace GuardianLog.API.Controllers
             {
                 var result = await MotoristaService.DeletemotoristaAsync(motoristaId);
 
-                if(result) return Ok("Motorista deletado com sucesso!");
+                if(result) return Ok(new {message = "Deletado"});
 
                 return BadRequest("Erro ao tentar deletar motorista!");
             }
