@@ -67,11 +67,11 @@ namespace GuardianLog.API.Controllers
         {
             try
             {
-                var result = await MotoristaService.AddMotoristaAsync(model);
+                var motorista = await MotoristaService.AddMotoristaAsync(model);
 
-                if(result) return Ok("Motorista cadastrado com sucesso!");
+                if(motorista == null) return NoContent();
 
-                return BadRequest("Erro ao tentar cadastrar motorista!");
+                return Ok(motorista);
             }
             catch (Exception ex)
             {

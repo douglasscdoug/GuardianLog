@@ -8,7 +8,7 @@ public interface IMotoristaService
     Task<MotoristaResponseDto[]?> GetAllMotoristasAsync();
     Task<MotoristaResponseDto[]?> GetMotoristasByNomeAsync(string nomeMotorista);
     Task<MotoristaResponseDto?> GetMotoristaByIdAsync(int motoristaId);
-    Task<bool> AddMotoristaAsync(MotoristaRequestDto model);
-    Task<MotoristaRequestDto?> UpdateMotoristaAsync(MotoristaRequestDto model);
+    Task<MotoristaResponseDto?> AddMotoristaAsync(MotoristaRequestDto model);
+    Task<MotoristaResponseDto?> UpdateMotoristaAsync(MotoristaRequestDto model);
     Task<bool> DeletemotoristaAsync(int motoristaId);
 }

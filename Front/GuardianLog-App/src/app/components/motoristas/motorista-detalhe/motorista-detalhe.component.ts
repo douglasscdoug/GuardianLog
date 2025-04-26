@@ -4,7 +4,7 @@ import { Motorista } from '../../../models/Motorista';
 import { CommonModule } from '@angular/common';
 import { Estado } from '../../../models/Estado';
 import { Cidade } from '../../../models/Cidade';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { MotoristaService } from '../../../services/motorista.service';
 import { ToastrService } from 'ngx-toastr';
@@ -47,7 +47,8 @@ export class MotoristaDetalheComponent {
     private toastr: ToastrService,
     private estadoService: EstadoService,
     private cidadeService: CidadeService,
-    private orgaoService: OrgaoEmissorService
+    private orgaoService: OrgaoEmissorService,
+    private router: Router
   ) {
     this.motoristaForm = this.fb.group({
       nome: [''],
@@ -143,6 +144,36 @@ export class MotoristaDetalheComponent {
   }
 
   public salvarMotorista(): void {
+    if(this.motoristaForm.valid) {
+      this.spinner.show();
 
+      const {cidade, estado, idEstado, ...enderecoLimpo} = this.motoristaForm.value.endereco;
+
+      const motoristaPayload: Motorista = (this.httpMetodo === 'post')
+        ? {
+            ...this.motoristaForm.value,
+            endereco: enderecoLimpo
+          }
+        : {
+            id: this.motoristaId,
+            ... this.motoristaForm.value,
+            endereco: {id: this.motorista.endereco.id, ...enderecoLimpo},
+            contato: {id: this.motorista.contato.id, ...this.motoristaForm.value.contato}
+          };
+
+      if(this.httpMetodo === 'post' || this.httpMetodo === 'put'){
+        this.motoristaService[this.httpMetodo](motoristaPayload).subscribe({
+          next: (motoristaResponse: Motorista) => {
+            this.toastr.success('Motorista salvo com sucesso!', 'Sucesso"');
+            this.router.navigate([`motoristas/detalhe/${motoristaResponse.id}`]);
+          },
+          error: (error: any) => {
+            console.error('Erro ao salvar motorista', error);
+            this.spinner.hide();
+            this.toastr.error('Erro ao salvar motorista', 'Erro');
+          }
+        }).add(() => this.spinner.hide());
+      }
+    }
   }
 }

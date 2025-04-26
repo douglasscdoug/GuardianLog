@@ -68,7 +68,7 @@ public class MotoristaService(
         }
     }
 
-    public async Task<bool> AddMotoristaAsync(MotoristaRequestDto model)
+    public async Task<MotoristaResponseDto?> AddMotoristaAsync(MotoristaRequestDto model)
     {
         try
         {
@@ -87,7 +87,13 @@ public class MotoristaService(
 
             GeralRepository.Add(motorista);
 
-            return await GeralRepository.SaveChangesAsync();
+            if(await GeralRepository.SaveChangesAsync())
+            {
+                var motoristaResponse = await MotoristaRepository.GetMotoristaByIdAsync(motorista.Id);
+                return Mapper.Map<MotoristaResponseDto>(motoristaResponse);
+            }
+
+            return null;
         }
         catch (Exception ex)
         {
@@ -95,7 +101,7 @@ public class MotoristaService(
         }
     }
 
-    public async Task<MotoristaRequestDto?> UpdateMotoristaAsync(MotoristaRequestDto model)
+    public async Task<MotoristaResponseDto?> UpdateMotoristaAsync(MotoristaRequestDto model)
     {
         try
         {
@@ -109,7 +115,7 @@ public class MotoristaService(
             if(await GeralRepository.SaveChangesAsync())
             {
                 var motoristaRetorno = await MotoristaRepository.GetMotoristaByIdAsync(motorista.Id);
-                return Mapper.Map<MotoristaRequestDto>(motoristaRetorno);
+                return Mapper.Map<MotoristaResponseDto>(motoristaRetorno);
             }
 
             return null;

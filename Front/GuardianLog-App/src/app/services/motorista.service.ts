@@ -19,4 +19,12 @@ export class MotoristaService {
   public getMotoristaById(id: number): Observable<Motorista> {
     return this.http.get<Motorista>(`${this.baseURL}/motoristaId/${id}`).pipe(take(1));
   }
+
+  public post(motorista: Motorista): Observable<Motorista> {
+    return this.http.post<Motorista>(this.baseURL, motorista).pipe(take(1));
+  }
+
+  public put(motorista: Motorista): Observable<Motorista> {
+    return this.http.put<Motorista>(this.baseURL, motorista).pipe(take(1));
+  }
 }
