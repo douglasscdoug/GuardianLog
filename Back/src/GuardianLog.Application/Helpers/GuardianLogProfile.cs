@@ -63,9 +63,13 @@ public class GuardianLogProfile : Profile
       CreateMap<TecnologiaRastreamento, TecnologiaRastreamentoDto>().ReverseMap();
       CreateMap<TipoCarreta, TipoCarretaDto>().ReverseMap();
       CreateMap<TipoVeiculo, TipoVeiculoDto>().ReverseMap();
-      CreateMap<Veiculo, VeiculoDto>()
+      CreateMap<Veiculo, VeiculoRequestDto>()
          .ForMember(dest => dest.TipoVinculo, opt => opt.MapFrom(src => (int)src.TipoVinculo));
-      CreateMap<VeiculoDto, Veiculo>()
+      CreateMap<VeiculoRequestDto, Veiculo>()
+         .ForMember(dest => dest.TipoVinculo, opt => opt.MapFrom(src => (TipoVinculo)src.TipoVinculo));
+      CreateMap<Veiculo, VeiculoResponseDto>()
+         .ForMember(dest => dest.TipoVinculo, opt => opt.MapFrom(src => (int)src.TipoVinculo));
+      CreateMap<VeiculoResponseDto, Veiculo>()
          .ForMember(dest => dest.TipoVinculo, opt => opt.MapFrom(src => (TipoVinculo)src.TipoVinculo));
    }
 }

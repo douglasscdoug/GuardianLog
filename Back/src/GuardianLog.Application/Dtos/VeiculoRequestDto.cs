@@ -2,7 +2,7 @@ using GuardianLog.Domain.Enum;
 
 namespace GuardianLog.Application.Dtos;
 
-public class VeiculoDto
+public class VeiculoRequestDto
 {
    public int Id { get; set; }
    public required string Placa { get; set; }

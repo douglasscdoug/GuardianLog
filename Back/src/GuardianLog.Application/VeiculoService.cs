@@ -19,7 +19,7 @@ public class VeiculoService(
    public IMapper Mapper { get; } = _mapper;
     public ILogger<VeiculoService> Logger { get; } = _logger;
 
-    public async Task<VeiculoDto[]?> GetAllVeiculosAsync()
+    public async Task<VeiculoResponseDto[]?> GetAllVeiculosAsync()
    {
       try
       {
@@ -28,7 +28,7 @@ public class VeiculoService(
          if (veiculos == null)
             return null;
 
-         var retorno = Mapper.Map<VeiculoDto[]>(veiculos);
+         var retorno = Mapper.Map<VeiculoResponseDto[]>(veiculos);
 
          return retorno;
       }
@@ -38,7 +38,7 @@ public class VeiculoService(
       }
    }
 
-   public async Task<VeiculoDto?> GetVeiculoByIdAsync(int veiculoId)
+   public async Task<VeiculoResponseDto?> GetVeiculoByIdAsync(int veiculoId)
    {
       try
       {
@@ -47,7 +47,7 @@ public class VeiculoService(
          if (veiculo == null)
             return null;
 
-         var retorno = Mapper.Map<VeiculoDto>(veiculo);
+         var retorno = Mapper.Map<VeiculoResponseDto>(veiculo);
 
          return retorno;
       }
@@ -57,7 +57,7 @@ public class VeiculoService(
       }
    }
 
-   public async Task<VeiculoDto?> GetVeiculoByPlacaAsync(string placa)
+   public async Task<VeiculoResponseDto?> GetVeiculoByPlacaAsync(string placa)
    {
       try
       {
@@ -66,7 +66,7 @@ public class VeiculoService(
          if (veiculo == null)
             return null;
 
-         var retorno = Mapper.Map<VeiculoDto>(veiculo);
+         var retorno = Mapper.Map<VeiculoResponseDto>(veiculo);
 
          return retorno;
       }
@@ -76,20 +76,19 @@ public class VeiculoService(
       }
    }
 
-   public async Task<bool> AddVeiculoAsync(VeiculoDto veiculoModel)
+   public async Task<VeiculoResponseDto?> AddVeiculoAsync(VeiculoRequestDto veiculoModel)
    {
       try
       {
          var veiculo = Mapper.Map<Veiculo>(veiculoModel);
-         GeralRepository.Add<Veiculo>(veiculo);
-         var result = await GeralRepository.SaveChangesAsync();
-
-         if(!result)
+         GeralRepository.Add(veiculo);
+         if(await GeralRepository.SaveChangesAsync())
          {
-            Logger.LogWarning("Falha ao salvar as alterações");
+            var veiculoResponse = await VeiculoRepository.GetVeiculoById(veiculo.Id);
+            return Mapper.Map<VeiculoResponseDto>(veiculoResponse);
          }
 
-         return result;
+         return null;
       }
       catch (Exception ex)
       {
@@ -97,7 +96,7 @@ public class VeiculoService(
       }
    }
 
-   public async Task<VeiculoDto?> UpdateVeiculoAsync(VeiculoDto veiculoModel)
+   public async Task<VeiculoResponseDto?> UpdateVeiculoAsync(VeiculoRequestDto veiculoModel)
    {
       try
       {
@@ -111,34 +110,11 @@ public class VeiculoService(
 
          if (await GeralRepository.SaveChangesAsync())
          {
-            var retorno = Mapper.Map<VeiculoDto>(await VeiculoRepository.GetVeiculoById(veiculo.Id));
+            var retorno = Mapper.Map<VeiculoResponseDto>(await VeiculoRepository.GetVeiculoById(veiculo.Id));
             return retorno;
          }
 
          return null;
-      }
-      catch (Exception ex)
-      {
-         throw new Exception(ex.Message);
-      }
-   }
-
-   public async Task<bool> DeleteVeiculoAsync(int veiculoId)
-   {
-      try
-      {
-         var veiculo = await VeiculoRepository.GetVeiculoById(veiculoId);
-
-         if (veiculo == null)
-         {
-            new Exception("Veículo não encontrado");
-         }
-         else
-         {
-            GeralRepository.Delete<Veiculo>(veiculo);
-         }
-
-         return await GeralRepository.SaveChangesAsync();
       }
       catch (Exception ex)
       {

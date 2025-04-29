@@ -10,6 +10,8 @@ import { EmpresaDetalheComponent } from './components/empresas/empresa-detalhe/e
 import { EmpresaListaComponent } from './components/empresas/empresa-lista/empresa-lista.component';
 import { MotoristaListaComponent } from './components/motoristas/motorista-lista/motorista-lista.component';
 import { MotoristaDetalheComponent } from './components/motoristas/motorista-detalhe/motorista-detalhe.component';
+import { VeiculoDetalheComponent } from './components/veiculos/veiculo-detalhe/veiculo-detalhe.component';
+import { VeiculoListaComponent } from './components/veiculos/veiculo-lista/veiculo-lista.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -32,7 +34,15 @@ export const routes: Routes = [
             { path: 'lista', component: MotoristaListaComponent}
         ]
     },
-    { path: 'veiculos', component: VeiculosComponent },
+    { path: 'veiculos', redirectTo: 'veiculos/lista' },
+    {
+        path: 'veiculos', component: VeiculosComponent,
+        children: [
+            { path: 'detalhe/:id', component: VeiculoDetalheComponent},
+            { path: 'detalhe', component: VeiculoDetalheComponent},
+            { path: 'lista', component: VeiculoListaComponent}
+        ]
+    },
     { path: 'viagens', component: ViagensComponent },
     { path: 'usuarios', component: UsuariosComponent},
     { path: 'login', component: LoginComponent},

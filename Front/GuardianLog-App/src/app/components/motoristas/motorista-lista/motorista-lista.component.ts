@@ -42,9 +42,10 @@ export class MotoristaListaComponent {
   }
 
   public carregarMotoristas(): void {
+    this.spinner.show();
+    
     this.motoristaService.getMotoristas().subscribe({
       next: (motoristasResponse: Motorista[]) => {
-        this.spinner.show();
         this.motoristas = motoristasResponse;
         this.motoristasFiltrados = this.motoristas;
       },

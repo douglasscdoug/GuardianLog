@@ -63,15 +63,15 @@ namespace GuardianLog.API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post(VeiculoDto veiculo)
+        public async Task<IActionResult> Post(VeiculoRequestDto model)
         {
             try
             {
-                var result = await VeiculoService.AddVeiculoAsync(veiculo);
+                var veiculo = await VeiculoService.AddVeiculoAsync(model);
 
-                if (!result) return BadRequest("Erro ao tentar cadastrar veículo!");
+                if (veiculo == null) return NoContent();
 
-                return Ok("Veículo cadastrado com sucesso!");
+                return Ok(veiculo);
             }
             catch (Exception ex)
             {
@@ -80,32 +80,15 @@ namespace GuardianLog.API.Controllers
         }
 
         [HttpPut]
-        public async Task<IActionResult> Put(VeiculoDto veiculoNovo)
+        public async Task<IActionResult> Put(VeiculoRequestDto model)
         {
             try
             {
-                var veiculo = await VeiculoService.UpdateVeiculoAsync(veiculoNovo);
+                var veiculo = await VeiculoService.UpdateVeiculoAsync(model);
 
-                if (veiculo == null) return NotFound($"Veículo Id: {veiculoNovo.Id} não encontrado!");
+                if (veiculo == null) return NotFound($"Veículo Id: {model.Id} não encontrado!");
 
-                return Ok($"Veículo Id: {veiculoNovo.Id} alterado com sucesso!");
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.Message);
-            }
-        }
-
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(int id)
-        {
-            try
-            {
-                var result = await VeiculoService.DeleteVeiculoAsync(id);
-
-                if (result) return Ok($"Veículo Id: {id} deletado com sucesso!");
-
-                return BadRequest("Não foi possível deletar o veículo!");
+                return Ok($"Veículo Id: {model.Id} alterado com sucesso!");
             }
             catch (Exception ex)
             {

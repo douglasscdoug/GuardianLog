@@ -38,9 +38,9 @@ export class EmpresaListaComponent {
   }
 
   public carregarEmpresas(): void {
+    this.spinner.show();
     this.empresaService.getEmpresas().subscribe({
       next: (empresasResp: Empresa[]) => {
-        this.spinner.show();
         this.empresas = empresasResp;
         this.empresasFiltradas = this.empresas;
       },

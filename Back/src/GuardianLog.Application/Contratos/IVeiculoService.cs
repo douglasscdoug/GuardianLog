@@ -4,10 +4,9 @@ namespace GuardianLog.Application.Contratos;
 
 public interface IVeiculoService
 {
-   Task<bool> AddVeiculoAsync(VeiculoDto veiculoModel);
-   Task<VeiculoDto?> UpdateVeiculoAsync(VeiculoDto veiculoNovo);
-   Task<bool> DeleteVeiculoAsync(int veiculoId);
-   Task<VeiculoDto[]?> GetAllVeiculosAsync();
-   Task<VeiculoDto?> GetVeiculoByIdAsync(int veiculoId);
-   Task<VeiculoDto?> GetVeiculoByPlacaAsync(string placa);
+   Task<VeiculoResponseDto?> AddVeiculoAsync(VeiculoRequestDto veiculoModel);
+   Task<VeiculoResponseDto?> UpdateVeiculoAsync(VeiculoRequestDto veiculoNovo);
+   Task<VeiculoResponseDto[]?> GetAllVeiculosAsync();
+   Task<VeiculoResponseDto?> GetVeiculoByIdAsync(int veiculoId);
+   Task<VeiculoResponseDto?> GetVeiculoByPlacaAsync(string placa);
 }
