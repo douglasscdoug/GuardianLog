@@ -1,1 +1,132 @@
-<p>veiculo-detalhe works!</p>
+<div class="row">
+    <div>
+      <div class="card rounded shadow-sm">
+        <form [formGroup]="veiculoForm">
+          <div class="p-3">
+            <h4>Cadastro</h4>
+            <hr>
+            <div class="row mb-2">
+              <div class="form-group col-md-3">
+                <label>Placa</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  formControlName="placa"
+                  placeholder="Insira placa do veículo"                
+                />
+              </div>
+              <div class="form-group col-md-3 col-12">
+                <label>Veiculo Internacional</label>
+                <select class="form-control" formControlName="veiculoInternacional" >
+                    <option value=""></option>
+                    <option [ngValue]="true">Sim</option>
+                    <option [ngValue]="false">Não</option>
+                </select>
+              </div>
+              <div class="form-group col-md-3 col-12">
+                <label>Tipo Veiculo</label>
+                <select class="form-control" formControlName="idTipoVeiculo" >
+                    <option value="">Selecione um tipo de veículo</option>
+                    <option *ngFor="let tipoVeiculo of tiposVeiculo" [ngValue]="tipoVeiculo.id">{{tipoVeiculo.nome}}</option>
+                </select>
+              </div>
+              <div class="form-group col-md-3 col-12">
+                <label>Tipo carreta</label>
+                <select class="form-control" formControlName="idTipoCarreta" >
+                    <option value="">Selecione um tipo de carreta</option>
+                    <option *ngFor="let tipoCarreta of tiposCarreta" [ngValue]="tipoCarreta.id">{{tipoCarreta.nome}}</option>
+                </select>
+              </div>
+            </div>
+            <div class="row mb-2">
+              <div class="form-group col-md-3 col-12">
+                <label>Chassi:</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  formControlName="chassi"
+                  placeholder="Insira o chassi do veículo"                
+                />
+              </div>
+              <div class="form-group col-md-3 col-12">
+                <label>Renavam:</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  formControlName="chassi"
+                  placeholder="Insira o renavam do veículo"                
+                />
+              </div>
+              <div class="form-group col-md-2">
+                <label>Cor:</label>
+                <select class="form-control" formControlName="idCor" >
+                    <option value="">Selecione a cor</option>
+                    <option *ngFor="let cor of cores" [ngValue]="cor.id">{{cor.nome}}</option>
+                </select>
+              </div>
+              <div class="form-group col-md-2 col-12">
+                <label>Vinculo:</label>
+                <select class="form-control" formControlName="tipoVinculo">
+                    <option value="">Selecione o vínculo</option>
+                  <option [ngValue]="1">Agregado</option>
+                  <option [ngValue]="2">Frota</option>
+                  <option [ngValue]="3">Terceiro</option>
+                </select>
+              </div>
+              <div class="form-group col-md-2 col-12">
+                <label>Ano:</label>
+                <input
+                  type="number"
+                  class="form-control"
+                  formControlName="anoFabricacao"
+                  placeholder="Ano de fabricação"
+                />
+              </div>
+            </div>
+            <div class="row mb-2">
+              <div class="form-group col-md-3 col-12">
+                <label>Tecnologia:</label>
+                <select class="form-control" formControlName="idTecnologia">
+                  <option value="">Selecione uma tecnologia</option>
+                  <option *ngFor="let tecnologia of tecnologias" [ngValue]="tecnologia.id">{{tecnologia.nome}}</option>
+                </select>
+              </div>
+              <div class="form-group col-md-3 col-12">
+                <label>Id equipamento:</label>
+                <input
+                  type="number"
+                  class="form-control"
+                  formControlName="idEquipamento"
+                  placeholder="Número do equipamento de tecnologia"
+                />
+              </div>
+              <div class="form-group col-md-3 col-12">
+                <label>Marca:</label>
+                <select class="form-control" formControlName="idMarcaVeiculo">
+                  <option value="">Selecione uma marca</option>
+                  <option *ngFor="let marca of marcas" [ngValue]="marca.id">{{marca.nome}}</option>
+                </select>
+              </div>
+              <div class="form-group col-md-3 col-12">
+                <label>Modelo:</label>
+                <select class="form-control" formControlName="idModeloVeiculo">
+                  <option value="">Selecione um modelo</option>
+                  <option *ngFor="let modelo of modelos" [ngValue]="modelo.id">{{modelo.nomeModelo}}</option>
+                </select>
+              </div>
+              
+            </div>
+          </div>
+          <div class="card-footer">
+            <div class="d-flex">
+              <button class="btn btn-outline-secondary me-auto border">
+                Cancelar Alteração
+              </button>
+              <button class="btn btn-success" (click)="salvarVeiculo()">Salvar</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  
