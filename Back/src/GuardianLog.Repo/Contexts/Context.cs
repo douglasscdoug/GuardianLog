@@ -235,11 +235,6 @@ public class Context(DbContextOptions<Context> options) : DbContext(options)
             .HasForeignKey(v => v.IdCor)
             .OnDelete(DeleteBehavior.Restrict);
 
-            veiculo.HasOne(v => v.Cidade)
-            .WithMany(c => c.Veiculos)
-            .HasForeignKey(v => v.IdCidade)
-            .OnDelete(DeleteBehavior.Restrict);
-
             veiculo.HasOne(v => v.Tecnologia)
             .WithMany(t => t.Veiculos)
             .HasForeignKey(v => v.IdTecnologia)

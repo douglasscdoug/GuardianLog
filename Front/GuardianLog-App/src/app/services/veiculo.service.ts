@@ -9,6 +9,7 @@ import { ModeloVeiculo } from '../models/ModeloVeiculo';
 import { Tecnologia } from '../models/Tecnologia';
 import { TipoCarreta } from '../models/TipoCarreta';
 import { TipoVeiculo } from '../models/TipoVeiculo';
+import { VeiculoPayload } from '../models/VeiculoPayload';
 
 @Injectable({
   providedIn: 'root'
@@ -26,11 +27,11 @@ export class VeiculoService {
     return this.http.get<Veiculo>(`${this.baseURL}/${id}`).pipe(take(1));
   }
 
-  public post(Veiculo: Veiculo): Observable<Veiculo> {
+  public post(Veiculo: VeiculoPayload): Observable<Veiculo> {
     return this.http.post<Veiculo>(this.baseURL, Veiculo).pipe(take(1));
   }
 
-  public put(Veiculo: Veiculo): Observable<Veiculo> {
+  public put(Veiculo: VeiculoPayload): Observable<Veiculo> {
     return this.http.put<Veiculo>(this.baseURL, Veiculo).pipe(take(1));
   }
 

@@ -11,8 +11,9 @@ import { filter } from 'rxjs';
 import { Tecnologia } from '../../../models/Tecnologia';
 import { TipoCarreta } from '../../../models/TipoCarreta';
 import { TipoVeiculo } from '../../../models/TipoVeiculo';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { VeiculoPayload } from '../../../models/VeiculoPayload';
 
 @Component({
   selector: 'app-veiculo-detalhe',
@@ -37,7 +38,8 @@ export class VeiculoDetalheComponent {
     private activatedRoute: ActivatedRoute,
     private veiculoService: VeiculoService,
     private spinner: NgxSpinnerService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private router: Router
   ) {
     this.veiculoForm = fb.group({
       placa: [''],
@@ -154,6 +156,30 @@ export class VeiculoDetalheComponent {
   }
 
   public salvarVeiculo(): void {
+    if(this.veiculoForm.valid) {
+      this.spinner.show();
 
+      const { idMarcaVeiculo, ...formValue } = this.veiculoForm.value;
+
+      if(formValue.idTipoCarreta === '') formValue.idTipoCarreta = null;
+
+      const payload: VeiculoPayload = (this.httpMetodo === 'post')
+      ? formValue
+      : { id: this.veiculoId, ...formValue}
+
+      if(this.httpMetodo === 'post' || this.httpMetodo === 'put') {
+        this.veiculoService[this.httpMetodo](payload).subscribe({
+          next: (veiculoResponse: Veiculo) => {
+            this.toastr.success('Veiculo salvo com sucesso!', 'Sucesso!');
+            this.router.navigate([`veiculos/detalhe/${veiculoResponse.id}`]);
+          },
+          error: (error: any) => {
+            console.error('Erro ao salvar veiculo', error);
+            this.toastr.error('Erro ao tentar salvar veículo', 'Erro!');
+            this.spinner.hide();
+          }
+        }).add(() => this.spinner.hide());
+      }
+    }
   }
 }

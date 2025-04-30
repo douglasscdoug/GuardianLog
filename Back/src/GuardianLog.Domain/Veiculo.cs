@@ -18,8 +18,6 @@ public class Veiculo
    public required Cor Cor { get; set; }
    public int IdCor { get; set; }
    public required string Renavam { get; set; }
-   public required Cidade Cidade { get; set; }
-   public int IdCidade { get; set; }
    public TipoVinculo TipoVinculo { get; set; }
    public required TecnologiaRastreamento Tecnologia { get; set; }
    public int IdTecnologia { get; set; }

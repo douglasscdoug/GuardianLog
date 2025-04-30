@@ -16,8 +16,6 @@ public class VeiculoResponseDto
     public required CorDto Cor { get; set; }
     public int IdCor { get; set; }
     public required string Renavam { get; set; }
-    public required CidadeDto Cidade { get; set; }
-    public int IdCidade { get; set; }
     public int TipoVinculo { get; set; }
     public required TecnologiaRastreamentoDto Tecnologia { get; set; }
     public int IdTecnologia { get; set; }

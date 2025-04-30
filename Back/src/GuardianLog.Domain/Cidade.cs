@@ -7,6 +7,5 @@ public class Cidade
    public required string NomeCidade { get; set; }
    public required Estado Estado { get; set; }
    public int IdEstado { get; set; }
-   public List<Veiculo> Veiculos { get; set; } = [];
    public List<Endereco> Enderecos { get; set; } = [];
 }

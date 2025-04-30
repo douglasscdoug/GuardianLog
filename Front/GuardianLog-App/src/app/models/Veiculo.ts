@@ -8,20 +8,19 @@ export interface Veiculo {
     id: number;
     placa: string;
     veiculoInternacional: boolean;
-    tipoVeiculo: TipoVeiculo;
+    tipoVeiculo?: TipoVeiculo;
     idTipoVeiculo: number;
     tipoCarreta?: TipoCarreta;
     idTipoCarreta: number;
     chassi: string;
     idModeloVeiculo: number;
-    modeloVeiculo: ModeloVeiculo;
+    modeloVeiculo?: ModeloVeiculo;
     anoFabricacao: number;
     idCor: number;
     cor: Cor;
     renavam: string;
-    idCidade: number;
     tipoVinculo: number;
     idTecnologia: number;
-    tecnologia: Tecnologia;
+    tecnologia?: Tecnologia;
     idEquipamento: number;
 }

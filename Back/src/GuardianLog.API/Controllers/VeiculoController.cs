@@ -87,9 +87,9 @@ namespace GuardianLog.API.Controllers
             {
                 var veiculo = await VeiculoService.UpdateVeiculoAsync(model);
 
-                if (veiculo == null) return NotFound($"Veículo Id: {model.Id} não encontrado!");
+                if (veiculo == null) return NoContent();
 
-                return Ok($"Veículo Id: {model.Id} alterado com sucesso!");
+                return Ok(veiculo);
             }
             catch (Exception ex)
             {
